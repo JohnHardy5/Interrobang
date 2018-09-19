@@ -15,20 +15,21 @@ public class MainCameraController : MonoBehaviour {
     public GameObject GameManager;
     private Transform CameraTransform;
 
-    private const float MOUSE_SENSITIVITY = 2.0f;
+    private float mouseSensitivity;
     private float yaw = 0f;
     private float pitch = 0f;
 
 	// Use this for initialization
 	void Start () {
-        GameManager = GetComponent<GameObject>();
+        GameManager = GameObject.Find("Game Manager");
         CameraTransform = this.transform;
+        //mouseSensitivity = GameManager.mouseSensitivity;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        yaw += Input.GetAxis("Mouse X");
-        pitch -= Input.GetAxis("Mouse Y");
+        yaw += mouseSensitivity * Input.GetAxis("Mouse X");
+        pitch -= mouseSensitivity * Input.GetAxis("Mouse Y");
         CameraTransform.eulerAngles = new Vector3(pitch, yaw, 0f);
     }
 

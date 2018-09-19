@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject MainCamera;
     private Transform playerTransform;
 
-    private float movementSpeed = 0.5f;
+    public float movementSpeed;
     private float horizInput;
     private float vertInput;
 
