@@ -16,15 +16,17 @@ public class MainCameraController : MonoBehaviour {
     private float mouseSensitivity;
     private float minY = -90f;
     private float maxY = 90f;
-    private float yaw = 0f;
-    private float pitch = 0f;
+    private float yaw;
+    private float pitch;
 
 	// Use this for initialization
 	void Start ()
     {
         GameManagerObject = GameObject.Find("Game Manager");
         GameManagerScript = GameManagerObject.GetComponent<GameManager>();
-        CameraTransform = this.transform;
+        CameraTransform = GetComponent<Transform>();
+        yaw = CameraTransform.eulerAngles.y;
+        pitch = CameraTransform.eulerAngles.x;
 	}
 	
 	// Update is called once per frame
