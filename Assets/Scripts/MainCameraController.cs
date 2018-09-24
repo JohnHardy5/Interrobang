@@ -10,10 +10,10 @@ using UnityEngine;
 
 public class MainCameraController : MonoBehaviour {
 
-    public GameObject GMobj;
+    public GameObject GameManagerObject;
     private Transform CameraTransform;
-    private GameManager GMscript;
-    private float mouseSensitivity = 5f;//default value
+    private GameManager GameManagerScript;
+    private float mouseSensitivity;
     private float minY = -90f;
     private float maxY = 90f;
     private float yaw = 0f;
@@ -22,15 +22,15 @@ public class MainCameraController : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        GMobj = GameObject.Find("Game Manager");
-        GMscript = GMobj.GetComponent<GameManager>();
+        GameManagerObject = GameObject.Find("Game Manager");
+        GameManagerScript = GameManagerObject.GetComponent<GameManager>();
         CameraTransform = this.transform;
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        mouseSensitivity = GMscript.mouseSensitivity;
+        mouseSensitivity = GameManagerScript.mouseSensitivity;
         yaw += mouseSensitivity * Input.GetAxis("Mouse X");
         pitch -= mouseSensitivity * Input.GetAxis("Mouse Y");
         pitch = Mathf.Clamp(pitch, minY, maxY);

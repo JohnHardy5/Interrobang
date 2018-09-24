@@ -13,34 +13,33 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    public GameObject GMobj;
+    public GameObject GameManagerObject;
     public GameObject MainCameraObj;
-    private GameManager GMscript;
+    private GameManager GameManagerScript;
     //private MainCameraController MainCameraScript;
     private Transform playerTransform;
     public float movementSpeed = 0.125f;//default value
     public float sprintSpeed = 0.5f;//default value
-    private float horizInput;
-    private float vertInput;
 
     // Use this for initialization
     void Start () {
-        GMobj = GameObject.Find("Game Manager");
-        GMscript = GMobj.GetComponent<GameManager>();
+        GameManagerObject = GameObject.Find("Game Manager");
+        GameManagerScript = GameManagerObject.GetComponent<GameManager>();
         MainCameraObj = GameObject.Find("Main Camera");
         //MainCameraScript = MainCameraObj.GetComponent<MainCameraController>();
-        playerTransform = this.transform;
+        playerTransform = GetComponent<Transform>();
     }
 	
     // Update is called once per frame
     void Update () {
-        movementSpeed = GMscript.playerMovementSpeed;
-        sprintSpeed = GMscript.playerSprintSpeed;
+        movementSpeed = GameManagerScript.playerMovementSpeed;
+        sprintSpeed = GameManagerScript.playerSprintSpeed;
         if (Input.GetKey("left shift")) movementSpeed = sprintSpeed;
         //set rotation so that the player is upright and facing the direction that the camera is pointing
-        playerTransform.eulerAngles = new Vector3(0.0f, MainCameraObj.transform.eulerAngles.y, 0.0f);
-        horizInput = Input.GetAxis("Horizontal");
-        vertInput = Input.GetAxis("Vertical");
+        float cameraY = MainCameraObj.transform.eulerAngles.y;
+        playerTransform.eulerAngles = new Vector3(0.0f, cameraY, 0.0f);
+        float horizInput = Input.GetAxis("Horizontal");
+        float vertInput = Input.GetAxis("Vertical");
         playerTransform.Translate(playerTransform.right * (horizInput * movementSpeed), Space.World);
         playerTransform.Translate(playerTransform.forward * (vertInput * movementSpeed), Space.World);
     }
