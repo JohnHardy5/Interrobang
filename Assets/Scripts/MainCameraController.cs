@@ -14,6 +14,8 @@ public class MainCameraController : MonoBehaviour {
     private Transform CameraTransform;
     private GameManager GMscript;
     private float mouseSensitivity = 5f;//default value
+    private float minY = -90f;
+    private float maxY = 90f;
     private float yaw = 0f;
     private float pitch = 0f;
 
@@ -31,6 +33,7 @@ public class MainCameraController : MonoBehaviour {
         mouseSensitivity = GMscript.mouseSensitivity;
         yaw += mouseSensitivity * Input.GetAxis("Mouse X");
         pitch -= mouseSensitivity * Input.GetAxis("Mouse Y");
+        pitch = Mathf.Clamp(pitch, minY, maxY);
         CameraTransform.eulerAngles = new Vector3(pitch, yaw, 0f);
     }
 
