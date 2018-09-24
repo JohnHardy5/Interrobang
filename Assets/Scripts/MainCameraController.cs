@@ -13,7 +13,7 @@ public class MainCameraController : MonoBehaviour {
     public GameObject GMobj;
     private Transform CameraTransform;
     private GameManager GMscript;
-    private float mouseSensitivity;
+    private float mouseSensitivity = 5f;//default value
     private float yaw = 0f;
     private float pitch = 0f;
 

@@ -13,25 +13,29 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    public GameObject GameManager;
-    public GameObject MainCamera;
+    public GameObject GMobj;
+    public GameObject MainCameraObj;
+    private GameManager GMscript;
+    //private MainCameraController MainCameraScript;
     private Transform playerTransform;
-
-    public float movementSpeed;
+    public float movementSpeed = 0.125f;//default value
     private float horizInput;
     private float vertInput;
 
     // Use this for initialization
     void Start () {
-        GameManager = GameObject.Find("Game Manager");
-        MainCamera = GameObject.Find("Main Camera");
+        GMobj = GameObject.Find("Game Manager");
+        GMscript = GMobj.GetComponent<GameManager>();
+        MainCameraObj = GameObject.Find("Main Camera");
+        //MainCameraScript = MainCameraObj.GetComponent<MainCameraController>();
         playerTransform = this.transform;
     }
 	
     // Update is called once per frame
     void Update () {
+        movementSpeed = GMscript.playerMovementSpeed;
         //set rotation so that player is upright facing camera direction
-        playerTransform.eulerAngles = new Vector3(0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
+        playerTransform.eulerAngles = new Vector3(0.0f, MainCameraObj.transform.eulerAngles.y, 0.0f);
         horizInput = Input.GetAxis("Horizontal");
         vertInput = Input.GetAxis("Vertical");
         playerTransform.Translate(playerTransform.right * (horizInput * movementSpeed), Space.World);
