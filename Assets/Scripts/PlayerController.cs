@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour {
     private GameManager GameManagerScript;
     //private MainCameraController MainCameraScript;
     private Transform playerTransform;
-    public float movementSpeed = 0.125f;//default value
-    public float sprintSpeed = 0.5f;//default value
+    private float movementSpeed;
+    private float sprintSpeed;
 
     // Use this for initialization
     void Start () {
