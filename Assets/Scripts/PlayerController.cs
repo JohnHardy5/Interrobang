@@ -21,15 +21,15 @@ public class PlayerController : MonoBehaviour {
     private float horizInput;
     private float vertInput;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         GameManager = GameObject.Find("Game Manager");
         MainCamera = GameObject.Find("Main Camera");
         playerTransform = this.transform;
-	}
+    }
 	
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
         //set rotation so that player is upright facing camera direction
         playerTransform.eulerAngles = new Vector3(0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
         horizInput = Input.GetAxis("Horizontal");

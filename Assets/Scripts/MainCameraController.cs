@@ -4,30 +4,31 @@
  * of the camera. Also has public methods for camera rotation, movement, and positioning.
  */
 
- //TODO: Movement and positioning
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MainCameraController : MonoBehaviour {
 
-    public GameObject GameManager;
+    public GameObject GMobj;
     private Transform CameraTransform;
-
+    private GameManager GMscript;
     private float mouseSensitivity;
     private float yaw = 0f;
     private float pitch = 0f;
 
 	// Use this for initialization
-	void Start () {
-        GameManager = GameObject.Find("Game Manager");
+	void Start ()
+    {
+        GMobj = GameObject.Find("Game Manager");
+        GMscript = GMobj.GetComponent<GameManager>();
         CameraTransform = this.transform;
-        //mouseSensitivity = GameManager.mouseSensitivity;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        mouseSensitivity = GMscript.mouseSensitivity;
         yaw += mouseSensitivity * Input.GetAxis("Mouse X");
         pitch -= mouseSensitivity * Input.GetAxis("Mouse Y");
         CameraTransform.eulerAngles = new Vector3(pitch, yaw, 0f);
