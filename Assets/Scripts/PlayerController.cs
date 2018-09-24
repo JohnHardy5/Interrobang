@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour {
     private GameManager GameManagerScript;
     //private MainCameraController MainCameraScript;
     private Transform playerTransform;
+    private Rigidbody playerRigidBody;
     private float movementSpeed;
     private float sprintSpeed;
 
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour {
         MainCameraObj = GameObject.Find("Main Camera");
         //MainCameraScript = MainCameraObj.GetComponent<MainCameraController>();
         playerTransform = GetComponent<Transform>();
+        playerRigidBody = GetComponent<Rigidbody>();
     }
 	
     // Update is called once per frame
@@ -40,7 +42,9 @@ public class PlayerController : MonoBehaviour {
         playerTransform.eulerAngles = new Vector3(0.0f, cameraY, 0.0f);
         float horizInput = Input.GetAxis("Horizontal");
         float vertInput = Input.GetAxis("Vertical");
-        playerTransform.Translate(playerTransform.right * (horizInput * movementSpeed), Space.World);
-        playerTransform.Translate(playerTransform.forward * (vertInput * movementSpeed), Space.World);
+        Vector3 movement = new Vector3(horizInput, 0.0f, vertInput);
+        playerRigidBody.AddRelativeForce(movement * movementSpeed, ForceMode.Impulse);
+        //playerTransform.Translate(playerTransform.right * (horizInput * movementSpeed), Space.World);
+        //playerTransform.Translate(playerTransform.forward * (vertInput * movementSpeed), Space.World);
     }
 }
