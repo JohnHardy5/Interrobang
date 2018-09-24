@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
     //private MainCameraController MainCameraScript;
     private Transform playerTransform;
     public float movementSpeed = 0.125f;//default value
+    public float sprintSpeed = 0.5f;//default value
     private float horizInput;
     private float vertInput;
 
@@ -34,7 +35,9 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         movementSpeed = GMscript.playerMovementSpeed;
-        //set rotation so that player is upright facing camera direction
+        sprintSpeed = GMscript.playerSprintSpeed;
+        if (Input.GetKey("left shift")) movementSpeed = sprintSpeed;
+        //set rotation so that the player is upright and facing the direction that the camera is pointing
         playerTransform.eulerAngles = new Vector3(0.0f, MainCameraObj.transform.eulerAngles.y, 0.0f);
         horizInput = Input.GetAxis("Horizontal");
         vertInput = Input.GetAxis("Vertical");
