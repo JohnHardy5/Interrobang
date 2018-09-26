@@ -14,37 +14,55 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     public GameObject GameManagerObject;
-    public GameObject MainCameraObj;
+    public GameObject CameraObject;
+
     private GameManager GameManagerScript;
-    //private MainCameraController MainCameraScript;
     private Transform playerTransform;
+    private Transform cameraTransform;
     private Rigidbody playerRigidBody;
     private float movementSpeed;
     private float sprintSpeed;
+    private float jumpStrength;
+    private float mouseSensitivity;
+    private float minY = -90f;
+    private float maxY = 90f;
+    private float yaw;
+    private float pitch;
 
     // Use this for initialization
     void Start () {
-        GameManagerObject = GameObject.Find("Game Manager");
         GameManagerScript = GameManagerObject.GetComponent<GameManager>();
-        MainCameraObj = GameObject.Find("Main Camera");
-        //MainCameraScript = MainCameraObj.GetComponent<MainCameraController>();
         playerTransform = GetComponent<Transform>();
+        cameraTransform = CameraObject.GetComponent<Transform>();
         playerRigidBody = GetComponent<Rigidbody>();
+        yaw = playerTransform.eulerAngles.y;
+        pitch = playerTransform.eulerAngles.x;
     }
 	
     // Update is called once per frame
-    void Update () {
-        movementSpeed = GameManagerScript.playerMovementSpeed;
-        sprintSpeed = GameManagerScript.playerSprintSpeed;
+    void FixedUpdate () {
+        loadGlobals();
+        yaw += mouseSensitivity * Input.GetAxis("Mouse X") * Time.deltaTime;
+        pitch -= mouseSensitivity * Input.GetAxis("Mouse Y") * Time.deltaTime;
+        pitch = Mathf.Clamp(pitch, minY, maxY);
+        playerTransform.eulerAngles = new Vector3(0f, yaw, 0f);//Don't pitch the player
+        cameraTransform.eulerAngles = new Vector3(pitch, yaw, 0f);
         if (Input.GetKey("left shift")) movementSpeed = sprintSpeed;
-        //set rotation so that the player is upright and facing the direction that the camera is pointing
-        float cameraY = MainCameraObj.transform.eulerAngles.y;
-        playerTransform.eulerAngles = new Vector3(0.0f, cameraY, 0.0f);
         float horizInput = Input.GetAxis("Horizontal");
         float vertInput = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(horizInput, 0.0f, vertInput);
         playerRigidBody.AddRelativeForce(movement * movementSpeed, ForceMode.Impulse);
-        //playerTransform.Translate(playerTransform.right * (horizInput * movementSpeed), Space.World);
-        //playerTransform.Translate(playerTransform.forward * (vertInput * movementSpeed), Space.World);
+        if (Input.GetKeyDown("space"))
+        {
+            playerRigidBody.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
+        }
+    }
+
+    void loadGlobals()
+    {
+        movementSpeed = GameManagerScript.playerMovementSpeed;
+        sprintSpeed = GameManagerScript.playerSprintSpeed;
+        jumpStrength = GameManagerScript.playerJumpStrength;
+        mouseSensitivity = GameManagerScript.mouseSensitivity;
     }
 }

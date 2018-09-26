@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
     public float mouseSensitivity;
     public float playerMovementSpeed;
     public float playerSprintSpeed;
+    public float playerJumpStrength;
 
 	// Use this for initialization
 	void Start () {
