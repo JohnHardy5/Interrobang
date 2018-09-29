@@ -12,13 +12,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     //Game settings
-    public float mouseSensitivity;
     public float playerMovementSpeed;
     public float playerSprintSpeed;
     public float playerJumpStrength;
+    public float playerMinGroundDistanceToJump;
+    public float mouseSensitivity;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         Cursor.lockState = CursorLockMode.Locked;
 	}
 }

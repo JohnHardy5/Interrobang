@@ -23,11 +23,13 @@ public class PlayerController : MonoBehaviour {
     private float movementSpeed;
     private float sprintSpeed;
     private float jumpStrength;
+    private float minGroundDistanceToJump;
     private float mouseSensitivity;
     private float minY = -90f;
     private float maxY = 90f;
     private float yaw;
     private float pitch;
+    private float rayCastDistance = 1000;
 
     // Use this for initialization
     void Start () {
@@ -41,28 +43,51 @@ public class PlayerController : MonoBehaviour {
 	
     // Update is called once per frame
     void FixedUpdate () {
-        loadGlobals();
+        LoadGlobals();
+        ManipulatePlayerAndCameraOrientation();
+        MovePlayer();
+        JumpPlayer();
+    }
+
+    void LoadGlobals ()
+    {
+        movementSpeed = GameManagerScript.playerMovementSpeed;
+        sprintSpeed = GameManagerScript.playerSprintSpeed;
+        jumpStrength = GameManagerScript.playerJumpStrength;
+        minGroundDistanceToJump = GameManagerScript.playerMinGroundDistanceToJump;
+        mouseSensitivity = GameManagerScript.mouseSensitivity;
+    }
+
+    void ManipulatePlayerAndCameraOrientation ()
+    {
         yaw += mouseSensitivity * Input.GetAxis("Mouse X") * Time.deltaTime;
         pitch -= mouseSensitivity * Input.GetAxis("Mouse Y") * Time.deltaTime;
         pitch = Mathf.Clamp(pitch, minY, maxY);
         playerTransform.eulerAngles = new Vector3(0f, yaw, 0f);//Don't pitch the player
         cameraTransform.eulerAngles = new Vector3(pitch, yaw, 0f);
+    }
+
+    void MovePlayer ()
+    {
         if (Input.GetKey("left shift")) movementSpeed = sprintSpeed;
         float horizInput = Input.GetAxis("Horizontal");
         float vertInput = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(horizInput, 0.0f, vertInput);
         playerRigidBody.AddRelativeForce(movement * movementSpeed, ForceMode.Impulse);
-        if (Input.GetKeyDown("space"))
-        {
-            playerRigidBody.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
-        }
     }
 
-    void loadGlobals()
+    void JumpPlayer ()
     {
-        movementSpeed = GameManagerScript.playerMovementSpeed;
-        sprintSpeed = GameManagerScript.playerSprintSpeed;
-        jumpStrength = GameManagerScript.playerJumpStrength;
-        mouseSensitivity = GameManagerScript.mouseSensitivity;
+        RaycastHit hit;
+        Vector3 down = playerTransform.TransformDirection(Vector3.down);
+        if (Physics.Raycast(playerTransform.position, down, out hit, rayCastDistance))
+        {
+            Debug.Log("Did Hit");
+            if (Input.GetKeyDown("space") && hit.distance <= minGroundDistanceToJump)
+            {
+                Debug.Log("Close enough, lets jump!");
+                playerRigidBody.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
+            }
+        }
     }
 }
