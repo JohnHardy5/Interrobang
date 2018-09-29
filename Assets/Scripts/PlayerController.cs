@@ -82,11 +82,11 @@ public class PlayerController : MonoBehaviour {
         float horizInput = Input.GetAxis("Horizontal");
         float vertInput = Input.GetAxis("Vertical");
         float slopeAngle = Vector3.Angle(playerTransform.TransformDirection(Vector3.forward), hit.normal);
-        Debug.Log("slopeAngle: " + slopeAngle);
         float upwardMovement = 0.0f;
         //If we are on a flat surface, the angle between forward and the normal of the surface below is 90 degrees
         if (hit.distance < minGroundDistanceToJump && slopeAngle > 90.0f && slopeAngle <= (maxSlopeAngle + 90.0f)) upwardMovement = slopeAngle / (maxSlopeAngle + 90.0f);
         Vector3 movement = new Vector3(horizInput, upwardMovement, vertInput);
+        //Only add force when movement keys are pressed
         if(horizInput != 0.0f || vertInput != 0.0f) playerRigidBody.AddRelativeForce(movement * movementSpeed, ForceMode.Impulse);
     }
 
