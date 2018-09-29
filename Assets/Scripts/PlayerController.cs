@@ -1,9 +1,9 @@
 ﻿/*
  * Written by: John Hardy
  * Manipulates the player object and maincamera by gathering key
- * and mouse inputs and calling camera methods. Note that the
- * movement keys only control the player object and the mouse only
- * controls the camera. However, the players movement will always
+ * and mouse inputs and manipulating the camera. Note that the
+ * movement keys only control the player object while the mouse
+ * controls the camera and player rotation. However, the players movement will always
  * be relative to where the camera is pointing.
  */
 
@@ -24,12 +24,14 @@ public class PlayerController : MonoBehaviour {
     private float sprintSpeed;
     private float jumpStrength;
     private float minGroundDistanceToJump;
+    private float maxSlopeAngle;
     private float mouseSensitivity;
     private float minY = -90f;
     private float maxY = 90f;
     private float yaw;
     private float pitch;
-    private float rayCastDistance = 1000;
+    private float rayCastDistance = 1000f;
+    private float rayCastForwardOffset = 0.25f;
 
     // Use this for initialization
     void Start () {
@@ -44,9 +46,15 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate () {
         LoadGlobals();
+        RaycastHit hit;
+        //Position the ray slightly forward of the player in order to detect slopes in front of it
+        Vector3 rayCastPosition = playerTransform.position + (playerTransform.forward * rayCastForwardOffset);
+        //Debug.Log("RayCastPosition: " + rayCastPosition);
+        Debug.DrawRay(rayCastPosition, Vector3.down, Color.red);
+        bool didHit = Physics.Raycast(rayCastPosition, Vector3.down, out hit, rayCastDistance);
         ManipulatePlayerAndCameraOrientation();
-        MovePlayer();
-        JumpPlayer();
+        MovePlayer(hit, didHit);
+        JumpPlayer(hit, didHit);
     }
 
     void LoadGlobals ()
@@ -55,6 +63,7 @@ public class PlayerController : MonoBehaviour {
         sprintSpeed = GameManagerScript.playerSprintSpeed;
         jumpStrength = GameManagerScript.playerJumpStrength;
         minGroundDistanceToJump = GameManagerScript.playerMinGroundDistanceToJump;
+        maxSlopeAngle = GameManagerScript.playerMaxSlopeAngle;
         mouseSensitivity = GameManagerScript.mouseSensitivity;
     }
 
@@ -67,27 +76,25 @@ public class PlayerController : MonoBehaviour {
         cameraTransform.eulerAngles = new Vector3(pitch, yaw, 0f);
     }
 
-    void MovePlayer ()
+    void MovePlayer (RaycastHit hit, bool didHit)
     {
         if (Input.GetKey("left shift")) movementSpeed = sprintSpeed;
         float horizInput = Input.GetAxis("Horizontal");
         float vertInput = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(horizInput, 0.0f, vertInput);
-        playerRigidBody.AddRelativeForce(movement * movementSpeed, ForceMode.Impulse);
+        float slopeAngle = Vector3.Angle(playerTransform.TransformDirection(Vector3.forward), hit.normal);
+        Debug.Log("slopeAngle: " + slopeAngle);
+        float upwardMovement = 0.0f;
+        //If we are on a flat surface, the angle between forward and the normal of the surface below is 90 degrees
+        if (hit.distance < minGroundDistanceToJump && slopeAngle > 90.0f && slopeAngle <= (maxSlopeAngle + 90.0f)) upwardMovement = slopeAngle / (maxSlopeAngle + 90.0f);
+        Vector3 movement = new Vector3(horizInput, upwardMovement, vertInput);
+        if(horizInput != 0.0f || vertInput != 0.0f) playerRigidBody.AddRelativeForce(movement * movementSpeed, ForceMode.Impulse);
     }
 
-    void JumpPlayer ()
+    void JumpPlayer (RaycastHit hit, bool didHit)
     {
-        RaycastHit hit;
-        Vector3 down = playerTransform.TransformDirection(Vector3.down);
-        if (Physics.Raycast(playerTransform.position, down, out hit, rayCastDistance))
+        if (didHit && Input.GetKeyDown("space") && hit.distance <= minGroundDistanceToJump)
         {
-            Debug.Log("Did Hit");
-            if (Input.GetKeyDown("space") && hit.distance <= minGroundDistanceToJump)
-            {
-                Debug.Log("Close enough, lets jump!");
-                playerRigidBody.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
-            }
+            playerRigidBody.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
         }
     }
 }
