@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour {
     }
 	
     // Update is called once per frame
-    void FixedUpdate () {
+    void Update () {
         LoadGlobals();
         RaycastHit hit;
         //Position the ray slightly forward of the player in order to detect slopes in front of it
