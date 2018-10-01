@@ -79,8 +79,8 @@ public class PlayerController : MonoBehaviour {
     void MovePlayer (RaycastHit hit, bool didHit)
     {
         if (Input.GetKey("left shift")) movementSpeed = sprintSpeed;
-        float horizInput = Input.GetAxis("Horizontal");
-        float vertInput = Input.GetAxis("Vertical");
+        float horizInput = Input.GetAxisRaw("Horizontal") * Time.deltaTime;
+        float vertInput = Input.GetAxisRaw("Vertical") * Time.deltaTime;
         float slopeAngle = Vector3.Angle(playerTransform.TransformDirection(Vector3.forward), hit.normal);
         float upwardMovement = 0.0f;
         //If we are on a flat surface, the angle between forward and the normal of the surface below is 90 degrees

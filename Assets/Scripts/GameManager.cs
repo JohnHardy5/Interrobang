@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
     //Game settings
     public float playerMovementSpeed;
     public float playerSprintSpeed;
+    public float playerMaxSpeed;
     public float playerJumpStrength;
     public float playerMinGroundDistanceToJump;
     public float playerMaxSlopeAngle;
