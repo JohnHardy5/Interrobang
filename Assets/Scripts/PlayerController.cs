@@ -20,11 +20,17 @@ public class PlayerController : MonoBehaviour {
     private Transform playerTransform;
     private Transform cameraTransform;
     private Rigidbody playerRigidBody;
+    private CapsuleCollider playerCollider;
     private float movementSpeed;
     private float sprintSpeed;
+    private float airSpeed;
+    private float maxSpeed;
+    private float maxSprintSpeed;
+    private float maxAirSpeed;
     private float jumpStrength;
-    private float minGroundDistanceToJump;
+    private float minGroundDistance;
     private float maxSlopeAngle;
+    private float friction;
     private float mouseSensitivity;
     private float minY = -90f;
     private float maxY = 90f;
@@ -32,6 +38,7 @@ public class PlayerController : MonoBehaviour {
     private float pitch;
     private float rayCastDistance = 1000f;
     private float rayCastForwardOffset = 0.25f;
+    private float slopeModifier = 30.0f;
 
     // Use this for initialization
     void Start () {
@@ -39,6 +46,7 @@ public class PlayerController : MonoBehaviour {
         playerTransform = GetComponent<Transform>();
         cameraTransform = CameraObject.GetComponent<Transform>();
         playerRigidBody = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<CapsuleCollider>();
         yaw = playerTransform.eulerAngles.y;
         pitch = playerTransform.eulerAngles.x;
     }
@@ -50,27 +58,37 @@ public class PlayerController : MonoBehaviour {
         //Position the ray slightly forward of the player in order to detect slopes in front of it
         Vector3 rayCastPosition = playerTransform.position + (playerTransform.forward * rayCastForwardOffset);
         //Debug.Log("RayCastPosition: " + rayCastPosition);
-        Debug.DrawRay(rayCastPosition, Vector3.down, Color.red);
+        //Debug.DrawRay(rayCastPosition, Vector3.down, Color.red);
         bool didHit = Physics.Raycast(rayCastPosition, Vector3.down, out hit, rayCastDistance);
+        bool isGrounded = didHit && hit.distance <= minGroundDistance;
         ManipulatePlayerAndCameraOrientation();
+        if (isGrounded)
+        {
+            SprintPlayer();
+            JumpPlayer();
+        }
         MovePlayer(hit, didHit);
-        JumpPlayer(hit, didHit);
     }
 
     void LoadGlobals ()
     {
         movementSpeed = GameManagerScript.playerMovementSpeed;
         sprintSpeed = GameManagerScript.playerSprintSpeed;
+        airSpeed = GameManagerScript.playerAirSpeed;
+        maxSpeed = GameManagerScript.playerMaxSpeed;
+        maxSprintSpeed = GameManagerScript.playerMaxSprintSpeed;
+        maxAirSpeed = GameManagerScript.playerMaxAirSpeed;
         jumpStrength = GameManagerScript.playerJumpStrength;
-        minGroundDistanceToJump = GameManagerScript.playerMinGroundDistanceToJump;
+        minGroundDistance = GameManagerScript.playerMinGroundDistance;
         maxSlopeAngle = GameManagerScript.playerMaxSlopeAngle;
+        friction = GameManagerScript.playerFriction;
         mouseSensitivity = GameManagerScript.mouseSensitivity;
     }
 
     void ManipulatePlayerAndCameraOrientation ()
     {
-        yaw += mouseSensitivity * Input.GetAxis("Mouse X") * Time.deltaTime;
-        pitch -= mouseSensitivity * Input.GetAxis("Mouse Y") * Time.deltaTime;
+        yaw += mouseSensitivity * Input.GetAxis("Mouse X");
+        pitch -= mouseSensitivity * Input.GetAxis("Mouse Y");
         pitch = Mathf.Clamp(pitch, minY, maxY);
         playerTransform.eulerAngles = new Vector3(0f, yaw, 0f);//Don't pitch the player
         cameraTransform.eulerAngles = new Vector3(pitch, yaw, 0f);
@@ -78,21 +96,55 @@ public class PlayerController : MonoBehaviour {
 
     void MovePlayer (RaycastHit hit, bool didHit)
     {
-        if (Input.GetKey("left shift")) movementSpeed = sprintSpeed;
+        float currentSpeed = playerRigidBody.velocity.magnitude;
         float horizInput = Input.GetAxisRaw("Horizontal") * Time.deltaTime;
         float vertInput = Input.GetAxisRaw("Vertical") * Time.deltaTime;
-        float slopeAngle = Vector3.Angle(playerTransform.TransformDirection(Vector3.forward), hit.normal);
-        float upwardMovement = 0.0f;
-        //If we are on a flat surface, the angle between forward and the normal of the surface below is 90 degrees
-        if (didHit && hit.distance < minGroundDistanceToJump && slopeAngle > 90.0f && slopeAngle <= (maxSlopeAngle + 90.0f)) upwardMovement = slopeAngle / (maxSlopeAngle + 90.0f);
-        Vector3 movement = new Vector3(horizInput, upwardMovement, vertInput);
-        //Only add force when movement keys are pressed
-        if(horizInput != 0.0f || vertInput != 0.0f) playerRigidBody.AddRelativeForce(movement * movementSpeed, ForceMode.Impulse);
+        playerCollider.material.dynamicFriction = friction;
+        playerCollider.material.staticFriction = friction;
+        playerCollider.material.frictionCombine = PhysicMaterialCombine.Maximum;
+        if (horizInput != 0.0f || vertInput != 0.0f)
+        {
+            float slopeAngle = 0.0f;
+            float upwardMovement = 0.0f;
+            if (didHit)
+            {
+                //angle between player forward vector and normal of surface
+                slopeAngle = Vector3.Angle(playerTransform.TransformDirection(Vector3.forward), hit.normal);
+                if (hit.distance <= minGroundDistance)//Grounded
+                {
+                    if (slopeAngle > 90.0f && slopeAngle <= (maxSlopeAngle + 90.0f))
+                    {
+                        //If we are on a flat surface, the angle between forward and the normal of the surface below is 90 degrees
+                        upwardMovement = slopeAngle - slopeModifier / maxSlopeAngle;
+                        Debug.Log("upwardMovement: " + upwardMovement);
+                    }
+                } else//Not grounded
+                {
+                    maxSpeed = maxAirSpeed;
+                    movementSpeed = airSpeed;
+                    playerCollider.material.dynamicFriction = 0.0f;
+                    playerCollider.material.staticFriction = 0.0f;
+                    playerCollider.material.frictionCombine = PhysicMaterialCombine.Minimum;
+                }
+            }
+            Vector3 movement = new Vector3(horizInput, upwardMovement, vertInput);
+            playerRigidBody.AddRelativeForce(movement * movementSpeed, ForceMode.Impulse);
+            if (currentSpeed > maxSpeed) playerRigidBody.velocity = playerRigidBody.velocity.normalized * maxSpeed;
+        }
     }
 
-    void JumpPlayer (RaycastHit hit, bool didHit)
+    void SprintPlayer ()
     {
-        if (didHit && Input.GetKeyDown("space") && hit.distance <= minGroundDistanceToJump)
+        if (Input.GetKey("left shift"))
+        {
+            movementSpeed = sprintSpeed;
+            maxSpeed = maxSprintSpeed;
+        }
+    }
+
+    void JumpPlayer ()
+    {
+        if (Input.GetKeyDown("space"))
         {
             playerRigidBody.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
         }
