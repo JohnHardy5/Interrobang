@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1267169701}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -448,7 +448,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_WalkSpeed
@@ -4596,7 +4596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &942820727
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9609,10 +9609,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovementSpeed: 10
   playerSprintSpeed: 15
-  playerAirSpeed: 3
-  playerMaxSpeed: 8
+  playerAirSpeed: 5
+  playerMaxSpeed: 10
   playerMaxSprintSpeed: 15
-  playerMaxAirSpeed: 7
+  playerMaxAirSpeed: 8
   playerJumpStrength: 2.5
   playerMinGroundDistance: 1.25
   playerMaxSlopeAngle: 50

@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour {
     private float pitch;
     private float rayCastDistance = 1000f;
     private float rayCastForwardOffset = 0.25f;
-    private float slopeModifier = 30.0f;
+    private float slopeModifier = 90.0f;
 
     // Use this for initialization
     void Start () {
@@ -54,20 +54,29 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         LoadGlobals();
+        ManipulatePlayerAndCameraOrientation();
         RaycastHit hit;
         //Position the ray slightly forward of the player in order to detect slopes in front of it
         Vector3 rayCastPosition = playerTransform.position + (playerTransform.forward * rayCastForwardOffset);
-        //Debug.Log("RayCastPosition: " + rayCastPosition);
-        //Debug.DrawRay(rayCastPosition, Vector3.down, Color.red);
         bool didHit = Physics.Raycast(rayCastPosition, Vector3.down, out hit, rayCastDistance);
         bool isGrounded = didHit && hit.distance <= minGroundDistance;
-        ManipulatePlayerAndCameraOrientation();
+        float moveX = Input.GetAxisRaw("Horizontal") * Time.deltaTime;
+        float moveY = 0.0f;
+        float moveZ = Input.GetAxisRaw("Vertical") * Time.deltaTime;
+        bool isMoving = moveX != 0f || moveZ != 0f;
         if (isGrounded)
         {
+            SetFriction(friction);
             SprintPlayer();
             JumpPlayer();
+            if (isMoving) moveY = DetectSlope(hit);
+        } else
+        {
+            maxSpeed = maxAirSpeed;
+            movementSpeed = airSpeed;
+            SetFriction(0.0f);
         }
-        MovePlayer(hit, didHit);
+        if (isMoving) MovePlayer(moveX, moveY, moveZ);
     }
 
     void LoadGlobals ()
@@ -94,42 +103,17 @@ public class PlayerController : MonoBehaviour {
         cameraTransform.eulerAngles = new Vector3(pitch, yaw, 0f);
     }
 
-    void MovePlayer (RaycastHit hit, bool didHit)
+    void MovePlayer (float moveX, float moveY, float moveZ)
     {
+        Vector3 movement = new Vector3(moveX, moveY, moveZ);
+        playerRigidBody.AddRelativeForce(movement * movementSpeed, ForceMode.Impulse);
         float currentSpeed = playerRigidBody.velocity.magnitude;
-        float horizInput = Input.GetAxisRaw("Horizontal") * Time.deltaTime;
-        float vertInput = Input.GetAxisRaw("Vertical") * Time.deltaTime;
-        playerCollider.material.dynamicFriction = friction;
-        playerCollider.material.staticFriction = friction;
-        playerCollider.material.frictionCombine = PhysicMaterialCombine.Maximum;
-        if (horizInput != 0.0f || vertInput != 0.0f)
+        Vector3 currVelocity = playerRigidBody.velocity;
+        Vector3 maxedVelocity = currVelocity.normalized * maxSpeed;
+        if (currentSpeed > maxSpeed)
         {
-            float slopeAngle = 0.0f;
-            float upwardMovement = 0.0f;
-            if (didHit)
-            {
-                //angle between player forward vector and normal of surface
-                slopeAngle = Vector3.Angle(playerTransform.TransformDirection(Vector3.forward), hit.normal);
-                if (hit.distance <= minGroundDistance)//Grounded
-                {
-                    if (slopeAngle > 90.0f && slopeAngle <= (maxSlopeAngle + 90.0f))
-                    {
-                        //If we are on a flat surface, the angle between forward and the normal of the surface below is 90 degrees
-                        upwardMovement = slopeAngle - slopeModifier / maxSlopeAngle;
-                        Debug.Log("upwardMovement: " + upwardMovement);
-                    }
-                } else//Not grounded
-                {
-                    maxSpeed = maxAirSpeed;
-                    movementSpeed = airSpeed;
-                    playerCollider.material.dynamicFriction = 0.0f;
-                    playerCollider.material.staticFriction = 0.0f;
-                    playerCollider.material.frictionCombine = PhysicMaterialCombine.Minimum;
-                }
-            }
-            Vector3 movement = new Vector3(horizInput, upwardMovement, vertInput);
-            playerRigidBody.AddRelativeForce(movement * movementSpeed, ForceMode.Impulse);
-            if (currentSpeed > maxSpeed) playerRigidBody.velocity = playerRigidBody.velocity.normalized * maxSpeed;
+            //Don't change velocity in the y direction
+            playerRigidBody.velocity = new Vector3(maxedVelocity.x, currVelocity.y, maxedVelocity.z);
         }
     }
 
@@ -147,6 +131,34 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyDown("space"))
         {
             playerRigidBody.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
+        }
+    }
+
+    float DetectSlope(RaycastHit hit)
+    {
+        //angle between player forward vector and normal of surface
+        //If we are on a flat surface, the angle between forward and the normal of the surface below is 90 degrees
+        float slopeAngle = Vector3.Angle(playerTransform.TransformDirection(Vector3.forward), hit.normal) - slopeModifier;
+        float upwardMovement = 0.0f;
+        if (slopeAngle > 0 && slopeAngle <= maxSlopeAngle)
+        {
+            //upwardMovement = (slopeAngle / 180f); /// movementSpeed / friction * playerRigidBody.mass;
+            // Debug.Log("slopeAngle: " + slopeAngle);
+            Debug.Log("upwardMovement: " + upwardMovement);
+        }
+        return upwardMovement;
+    }
+
+    public void SetFriction (float f)
+    {
+        playerCollider.material.dynamicFriction = f;
+        playerCollider.material.staticFriction = f;
+        if (f < 1.0f)
+        {
+            playerCollider.material.frictionCombine = PhysicMaterialCombine.Minimum;
+        } else
+        {
+            playerCollider.material.frictionCombine = PhysicMaterialCombine.Maximum;
         }
     }
 }
