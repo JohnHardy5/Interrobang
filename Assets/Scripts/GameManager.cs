@@ -16,13 +16,13 @@ public class GameManager : MonoBehaviour {
     public float pointOfNoReturn;//Point at which player has fallen out of map
 
     public GameObject playerGO;
-    private UnityStandardAssets.Characters.FirstPerson.FirstPersonController playerScript;
+    private FirstPersonController playerScript;
     private Rigidbody playerRB;
     private Transform playerT;
 
     // Use this for initialization
     void Start () {
-        playerScript = playerGO.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
+        playerScript = playerGO.GetComponent<FirstPersonController>();
         playerRB = playerGO.GetComponent<Rigidbody>();
         playerT = playerGO.GetComponent<Transform>();
     }
