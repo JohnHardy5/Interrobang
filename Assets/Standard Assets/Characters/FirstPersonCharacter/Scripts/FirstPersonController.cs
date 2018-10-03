@@ -82,8 +82,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
-
-            if ()
         }
 
 
@@ -259,7 +257,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
 
-        public void Die ()
+        public void PlayDeathSound ()
         {
             m_AudioSource.clip = m_DeathSound;
             m_AudioSource.Play();
