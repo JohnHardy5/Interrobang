@@ -12,20 +12,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     //Game settings
-    public float playerMovementSpeed;
-    public float playerSprintSpeed;
-    public float playerAirSpeed;
-    public float playerMaxSpeed;
-    public float playerMaxSprintSpeed;
-    public float playerMaxAirSpeed;
-    public float playerJumpStrength;
-    public float playerMinGroundDistance;
-    public float playerMaxSlopeAngle;
-    public float playerFriction;
     public float mouseSensitivity;
 
     // Use this for initialization
     void Start () {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
 	}
 }
