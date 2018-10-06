@@ -14385,8 +14385,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d67c2bb776cad747b340f84954690cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 10
-  pointOfNoReturn: -10
+  mouseSensitivity: 0
+  pointOfNoReturn: 0
   playerGO: {fileID: 830424372}
 --- !u!4 &1689993151
 Transform:
@@ -15048,11 +15048,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4914229023052266, guid: c61d9cd57793caa4595be7d1116d83a0, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 28.72
+      value: 13.47
       objectReference: {fileID: 0}
     - target: {fileID: 4914229023052266, guid: c61d9cd57793caa4595be7d1116d83a0, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 6.27
+      value: 27.11
       objectReference: {fileID: 0}
     - target: {fileID: 4914229023052266, guid: c61d9cd57793caa4595be7d1116d83a0, type: 2}
       propertyPath: m_LocalPosition.z
@@ -15081,6 +15081,11 @@ Prefab:
     - target: {fileID: 4914229023052266, guid: c61d9cd57793caa4595be7d1116d83a0, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: -90.087006
+      objectReference: {fileID: 0}
+    - target: {fileID: 114837506312697760, guid: c61d9cd57793caa4595be7d1116d83a0,
+        type: 2}
+      propertyPath: m_StickToGroundForce
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c61d9cd57793caa4595be7d1116d83a0, type: 2}

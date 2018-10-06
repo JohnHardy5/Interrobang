@@ -89,6 +89,13 @@ public class FirstPersonController : MonoBehaviour
     }
 
 
+    float timeToIncrease;
+    float amountToIncrease;
+    float startTime;
+    float endTime;
+    float timer;
+
+
     private void FixedUpdate()
     {
         float speed;
@@ -102,10 +109,34 @@ public class FirstPersonController : MonoBehaviour
                             m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
         desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
 
-        m_MoveDir.x = desiredMove.x * speed;
-        m_MoveDir.z = desiredMove.z * speed;
+        if (m_Jumping)
+        {
+            if(Input.GetKeyDown("s"))
+            {
+                startTime = Time.time;
+            }
+            if (m_Input.y >= 0)
+            {
+                m_MoveDir.x = desiredMove.x * speed;
+                m_MoveDir.z = desiredMove.z * speed;
+            } else
+            {
+                Debug.Log("start time " + startTime);
+                Debug.Log("Time " + Time.time);
+                m_MoveDir.x = desiredMove.x * - (speed - (Math.Abs(Time.time - startTime)*25));
+                m_MoveDir.z = desiredMove.z * - (speed - (Math.Abs(Time.time - startTime)*25));
+            }
 
-
+            if (Input.GetKeyUp("s"))
+            {
+                endTime = Time.time;
+            }
+        } else
+        {
+            m_MoveDir.x = desiredMove.x * speed;
+            m_MoveDir.z = desiredMove.z * speed;
+        }
+        
         if (m_CharacterController.isGrounded)
         {
             m_MoveDir.y = -m_StickToGroundForce;
@@ -122,6 +153,7 @@ public class FirstPersonController : MonoBehaviour
         {
             m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime;
         }
+
         m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
 
         ProgressStepCycle(speed);
