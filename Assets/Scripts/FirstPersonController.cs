@@ -152,6 +152,7 @@ public class FirstPersonController : MonoBehaviour
         else
         {
             m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime;
+            m_Jump = false;
         }
 
         m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
