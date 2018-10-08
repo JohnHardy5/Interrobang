@@ -111,26 +111,26 @@ public class FirstPersonController : MonoBehaviour
 
         if (m_Jumping)
         {
-            if(Input.GetKeyDown("s"))
-            {
-                startTime = Time.time;
-            }
+            //if (input.getkeydown("s"))
+            //{
+            //    starttime = time.time;
+            //}
             if (m_Input.y >= 0)
             {
                 m_MoveDir.x = desiredMove.x * speed;
                 m_MoveDir.z = desiredMove.z * speed;
             } else
             {
-                Debug.Log("start time " + startTime);
-                Debug.Log("Time " + Time.time);
+                //Debug.Log("start time " + startTime);
+                //Debug.Log("Time " + Time.time);
                 m_MoveDir.x = desiredMove.x * - (speed - (Math.Abs(Time.time - startTime)*25));
                 m_MoveDir.z = desiredMove.z * - (speed - (Math.Abs(Time.time - startTime)*25));
             }
 
-            if (Input.GetKeyUp("s"))
-            {
-                endTime = Time.time;
-            }
+            //if (Input.GetKeyUp("s"))
+            //{
+            //    endTime = Time.time;
+            //}
         } else
         {
             m_MoveDir.x = desiredMove.x * speed;
