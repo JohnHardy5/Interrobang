@@ -109,22 +109,35 @@ public class FirstPersonController : MonoBehaviour
                             m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
         desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
 
+        // Debug.Log("Y " + m_Input.y);
+        // Debug.Log("X " + m_Input.x);
+        float maxXSpeed = 10;
+        float maxZSpeed = Math.Abs(desiredMove.z *speed);
+        Debug.Log(maxXSpeed);
         if (m_Jumping)
         {
+
             if(Input.GetKeyDown("s"))
             {
                 startTime = Time.time;
             }
             if (m_Input.y >= 0)
             {
+                // Debug.Log(desiredMove);
+
                 m_MoveDir.x = desiredMove.x * speed;
                 m_MoveDir.z = desiredMove.z * speed;
+            } else if (m_Input.y < 0)
+            {
+                desiredMove = transform.forward * Math.Abs(m_Input.y) + transform.right * Math.Abs(m_Input.x);
+                // Debug.Log(speed - (Math.Abs(Time.time - startTime) * 25));
+                // Debug.Log("Time " + Time.time);
+                m_MoveDir.x = desiredMove.x * (speed - (Math.Abs(Time.time - startTime) * 5));
+                m_MoveDir.z = desiredMove.z * (speed - (Math.Abs(Time.time - startTime) * 5));
             } else
             {
-                Debug.Log("start time " + startTime);
-                Debug.Log("Time " + Time.time);
-                m_MoveDir.x = desiredMove.x * - (speed - (Math.Abs(Time.time - startTime)*25));
-                m_MoveDir.z = desiredMove.z * - (speed - (Math.Abs(Time.time - startTime)*25));
+                m_MoveDir.x = desiredMove.x * speed;
+                m_MoveDir.z = desiredMove.z * speed;
             }
 
             if (Input.GetKeyUp("s"))
@@ -136,7 +149,7 @@ public class FirstPersonController : MonoBehaviour
             m_MoveDir.x = desiredMove.x * speed;
             m_MoveDir.z = desiredMove.z * speed;
         }
-        
+
         if (m_CharacterController.isGrounded)
         {
             m_MoveDir.y = -m_StickToGroundForce;

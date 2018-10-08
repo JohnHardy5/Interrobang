@@ -15087,6 +15087,11 @@ Prefab:
       propertyPath: m_StickToGroundForce
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 82396007089257434, guid: c61d9cd57793caa4595be7d1116d83a0,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c61d9cd57793caa4595be7d1116d83a0, type: 2}
   m_IsPrefabAsset: 0
