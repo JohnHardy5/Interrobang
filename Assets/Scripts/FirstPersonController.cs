@@ -105,6 +105,7 @@ public class FirstPersonController : MonoBehaviour
 
         // get a normal for the surface that is being touched to move along it
         RaycastHit hitInfo;
+<<<<<<< HEAD
         Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
                             m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
         desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
@@ -149,6 +150,40 @@ public class FirstPersonController : MonoBehaviour
             m_MoveDir.x = desiredMove.x * speed;
             m_MoveDir.z = desiredMove.z * speed;
         }
+=======
+        Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo, m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+        desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal);//.normalized;
+        
+        //if (m_Jumping)
+        //{
+        //    //if (input.getkeydown("s"))
+        //    //{
+        //    //    starttime = time.time;
+        //    //}
+        //    if (m_Input.y >= 0)
+        //    {
+        //        m_MoveDir.x = desiredMove.x * speed;
+        //        m_MoveDir.z = desiredMove.z * speed;
+        //    } else
+        //    {
+        //        //Debug.Log("start time " + startTime);
+        //        //Debug.Log("Time " + Time.time);
+        //        m_MoveDir.x = desiredMove.x * - (speed - (Math.Abs(Time.time - startTime)*25));
+        //        m_MoveDir.z = desiredMove.z * - (speed - (Math.Abs(Time.time - startTime)*25));
+        //    }
+
+        //    //if (Input.GetKeyUp("s"))
+        //    //{
+        //    //    endTime = Time.time;
+        //    //}
+        //} else
+        //{
+        //    m_MoveDir.x = desiredMove.x * speed;
+        //    m_MoveDir.z = desiredMove.z * speed;
+        //}
+        m_MoveDir.x = desiredMove.x * speed;
+        m_MoveDir.z = desiredMove.z * speed;
+>>>>>>> b5347f7f38c0fa44cb94750253f7de1ff6fec5e6
 
         if (m_CharacterController.isGrounded)
         {
@@ -158,14 +193,16 @@ public class FirstPersonController : MonoBehaviour
             {
                 m_MoveDir.y = m_JumpSpeed;
                 PlayJumpSound();
-                m_Jump = false;
                 m_Jumping = true;
             }
         }
         else
         {
             m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime;
+            m_Jump = false;
         }
+
+        m_Jump = false;
 
         m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
 
@@ -251,11 +288,9 @@ public class FirstPersonController : MonoBehaviour
 
         bool waswalking = m_IsWalking;
 
-#if !MOBILE_INPUT
-        // On standalone builds, walk/run speed is modified by a key press.
         // keep track of whether or not the character is walking or running
         m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
-#endif
+
         // set the desired speed to be walking or running
         speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
         m_Input = new Vector2(horizontal, vertical);
