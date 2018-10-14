@@ -107,40 +107,37 @@ public class FirstPersonController : MonoBehaviour
         RaycastHit hitInfo;
         Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo, m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
         desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal);//.normalized;
-
-<<<<<<< HEAD
-        if (m_Jumping)
-        {
-            //if (input.getkeydown("s"))
-            //{
-            //    starttime = time.time;
-            //}
-            if (m_Input.y >= 0)
-            {
-                m_MoveDir.x = desiredMove.x * speed;
-                m_MoveDir.z = desiredMove.z * speed;
-            } else
-            {
-                //Debug.Log("start time " + startTime);
-                //Debug.Log("Time " + Time.time);
-                m_MoveDir.x = desiredMove.x * - (speed - (Math.Abs(Time.time - startTime)*25));
-                m_MoveDir.z = desiredMove.z * - (speed - (Math.Abs(Time.time - startTime)*25));
-            }
-
-            //if (Input.GetKeyUp("s"))
-            //{
-            //    endTime = Time.time;
-            //}
-        } else
-        {
-            m_MoveDir.x = desiredMove.x * speed;
-            m_MoveDir.z = desiredMove.z * speed;
-        }
         
-=======
+        //if (m_Jumping)
+        //{
+        //    //if (input.getkeydown("s"))
+        //    //{
+        //    //    starttime = time.time;
+        //    //}
+        //    if (m_Input.y >= 0)
+        //    {
+        //        m_MoveDir.x = desiredMove.x * speed;
+        //        m_MoveDir.z = desiredMove.z * speed;
+        //    } else
+        //    {
+        //        //Debug.Log("start time " + startTime);
+        //        //Debug.Log("Time " + Time.time);
+        //        m_MoveDir.x = desiredMove.x * - (speed - (Math.Abs(Time.time - startTime)*25));
+        //        m_MoveDir.z = desiredMove.z * - (speed - (Math.Abs(Time.time - startTime)*25));
+        //    }
+
+        //    //if (Input.GetKeyUp("s"))
+        //    //{
+        //    //    endTime = Time.time;
+        //    //}
+        //} else
+        //{
+        //    m_MoveDir.x = desiredMove.x * speed;
+        //    m_MoveDir.z = desiredMove.z * speed;
+        //}
         m_MoveDir.x = desiredMove.x * speed;
         m_MoveDir.z = desiredMove.z * speed;
->>>>>>> 9714fa6bbc6020e8af6a2c54b1f72d7b0bc14539
+
         if (m_CharacterController.isGrounded)
         {
             m_MoveDir.y = -m_StickToGroundForce;
