@@ -105,52 +105,7 @@ public class FirstPersonController : MonoBehaviour
 
         // get a normal for the surface that is being touched to move along it
         RaycastHit hitInfo;
-<<<<<<< HEAD
-        Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
-                            m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
-        desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
 
-        // Debug.Log("Y " + m_Input.y);
-        // Debug.Log("X " + m_Input.x);
-        float maxXSpeed = 10;
-        float maxZSpeed = Math.Abs(desiredMove.z *speed);
-        // Debug.Log(maxXSpeed);
-        if (m_Jumping)
-        {
-
-            if(Input.GetKeyDown("s"))
-            {
-                startTime = Time.time;
-            }
-            if (m_Input.y >= 0)
-            {
-                // Debug.Log(desiredMove);
-
-                m_MoveDir.x = desiredMove.x * speed;
-                m_MoveDir.z = desiredMove.z * speed;
-            } else if (m_Input.y < 0)
-            {
-                desiredMove = transform.forward * Math.Abs(m_Input.y) + transform.right * Math.Abs(m_Input.x);
-                // Debug.Log(speed - (Math.Abs(Time.time - startTime) * 25));
-                // Debug.Log("Time " + Time.time);
-                m_MoveDir.x = desiredMove.x * (speed - (Math.Abs(Time.time - startTime) * 5));
-                m_MoveDir.z = desiredMove.z * (speed - (Math.Abs(Time.time - startTime) * 5));
-            } else
-            {
-                m_MoveDir.x = desiredMove.x * speed;
-                m_MoveDir.z = desiredMove.z * speed;
-            }
-
-            if (Input.GetKeyUp("s"))
-            {
-                endTime = Time.time;
-            }
-        } else
-        {
-            m_MoveDir.x = desiredMove.x * speed;
-            m_MoveDir.z = desiredMove.z * speed;
-        }
-=======
         Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo, m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
         desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal);//.normalized;
         
@@ -183,7 +138,6 @@ public class FirstPersonController : MonoBehaviour
         //}
         m_MoveDir.x = desiredMove.x * speed;
         m_MoveDir.z = desiredMove.z * speed;
->>>>>>> b5347f7f38c0fa44cb94750253f7de1ff6fec5e6
 
         if (m_CharacterController.isGrounded)
         {
