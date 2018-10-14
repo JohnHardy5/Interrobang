@@ -113,7 +113,7 @@ public class FirstPersonController : MonoBehaviour
         // Debug.Log("X " + m_Input.x);
         float maxXSpeed = 10;
         float maxZSpeed = Math.Abs(desiredMove.z *speed);
-        Debug.Log(maxXSpeed);
+        // Debug.Log(maxXSpeed);
         if (m_Jumping)
         {
 
