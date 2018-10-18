@@ -2053,11 +2053,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 295444716}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.83, y: 10.3, z: -3.75}
+  m_LocalPosition: {x: 15.83, y: 8.42, z: -70.119995}
   m_LocalScale: {x: 4, y: 0.19999999, z: 6}
   m_Children: []
-  m_Father: {fileID: 2074070850}
-  m_RootOrder: 0
+  m_Father: {fileID: 1165237994}
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &295444718
 MeshRenderer:
@@ -7366,8 +7366,8 @@ Transform:
   - {fileID: 1553874371}
   - {fileID: 1599680063}
   - {fileID: 1952080849}
-  - {fileID: 2074070850}
   - {fileID: 2027714923}
+  - {fileID: 295444717}
   - {fileID: 2113195944}
   - {fileID: 153425105}
   - {fileID: 521241020}
@@ -11096,7 +11096,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1666668084}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 14.51, y: -8, z: 39.875}
+  m_LocalPosition: {x: 14.5, y: -8, z: 39.875}
   m_LocalScale: {x: 1.250001, y: 14, z: 6.0000215}
   m_Children: []
   m_Father: {fileID: 1165237994}
@@ -13420,7 +13420,7 @@ Transform:
   m_LocalScale: {x: 5, y: 0.19999999, z: 5}
   m_Children: []
   m_Father: {fileID: 1165237994}
-  m_RootOrder: 26
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &2027714924
 MeshRenderer:
@@ -13571,37 +13571,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2068900458}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2074070849
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 1413650013474860, guid: 9a5d5b419264a5a408877123781348e5,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2074070850}
-  m_Layer: 0
-  m_Name: Slopey Bridge Boi (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2074070850
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 4178274439836762, guid: 9a5d5b419264a5a408877123781348e5,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2074070849}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6, y: -1.8800001, z: -66.369995}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 295444717}
-  m_Father: {fileID: 1165237994}
-  m_RootOrder: 25
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2094992150
 GameObject:
   m_ObjectHideFlags: 0
