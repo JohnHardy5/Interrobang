@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -38,13 +39,20 @@ public class FirstPersonController : MonoBehaviour
     private float m_NextStep;
     private bool m_Jumping;
     private AudioSource m_AudioSource;
+    public GameObject gameManager;
+    Quaternion m_StartingCameraPosition;
+    Transform m_StartingPosition;
+
 
     // Use this for initialization
     private void Start()
     {
+        gameManager = GameObject.Find("Game Manager");
         m_CharacterController = GetComponent<CharacterController>();
         m_Camera = Camera.main;
         m_OriginalCameraPosition = m_Camera.transform.localPosition;
+        m_StartingPosition = transform;
+        m_StartingCameraPosition = m_Camera.transform.rotation;
         m_FovKick.Setup(m_Camera);
         m_HeadBob.Setup(m_Camera, m_StepInterval);
         m_StepCycle = 0f;
@@ -108,7 +116,7 @@ public class FirstPersonController : MonoBehaviour
 
         Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo, m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
         desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal);//.normalized;
-        
+
         //if (m_Jumping)
         //{
         //    //if (input.getkeydown("s"))
@@ -233,7 +241,6 @@ public class FirstPersonController : MonoBehaviour
         m_Camera.transform.localPosition = newCameraPosition;
     }
 
-
     private void GetInput(out float speed)
     {
         // Read input
@@ -264,10 +271,33 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Spikes"))
+        {
+
+            StartCoroutine(KillPlayer());
+        }
+    }
+    bool flag = true;
 
     private void RotateView()
     {
-        m_MouseLook.LookRotation(transform, m_Camera.transform);
+            m_MouseLook.LookRotation(transform, m_Camera.transform);
+    }
+
+    private void RotateViewCutscene()
+    {
+        m_MouseLook.LookRotationCutscene(transform, m_Camera.transform);
+    }
+
+    IEnumerator KillPlayer()
+    {
+
+        RotateViewCutscene();
+        this.transform.position = gameManager.transform.position;
+        yield return new WaitForSeconds(0.125f); // Prevents audio distortion'
+        PlayDeathSound();
     }
 
 

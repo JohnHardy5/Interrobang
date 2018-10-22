@@ -52,6 +52,14 @@ public class MouseLook
         UpdateCursorLock();
     }
 
+    public void LookRotationCutscene(Transform character, Transform camera)
+    {
+        float originalOrientation = (float)(.7);
+        Quaternion originalRotation = new Quaternion(0, originalOrientation, 0, originalOrientation);
+        m_CharacterTargetRot = originalRotation;
+        m_CameraTargetRot = camera.localRotation;
+    }
+
     public void SetCursorLock(bool value)
     {
         lockCursor = value;

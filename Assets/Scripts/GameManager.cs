@@ -14,8 +14,9 @@ public class GameManager : MonoBehaviour {
     //Game settings
     public float mouseSensitivity;//TODO: Make adjustable mouse sensitivity
     public float pointOfNoReturn;//Point at which player has fallen out of map
-    public double loopingSectionX = 15.0;
-    public double loopingSectionZ = 204.5;
+    private double loopingSectionX = 7.0;
+    private double loopingSectionZ = 202;
+    private double zPositionOffset = 204.5;
 
     public GameObject playerGO;
     private FirstPersonController playerScript;
@@ -60,9 +61,13 @@ public class GameManager : MonoBehaviour {
 
         //}
 
-        if (playerT.position.y < pointOfNoReturn) StartCoroutine(KillPlayer());
-        if (playerT.position.x >= loopingSectionX && playerT.position.z >= loopingSectionZ) StartCoroutine(KillPlayer());
 
+        if (playerT.position.y < pointOfNoReturn) StartCoroutine(KillPlayer());
+        if (playerT.position.x >= loopingSectionX && playerT.position.z >= loopingSectionZ)
+        {
+            
+            StartCoroutine(teleportPlayer());
+        }
     }
 
     IEnumerator KillPlayer ()
@@ -74,8 +79,8 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator teleportPlayer()
     {
-        playerT.position = new Vector3(0.0f, 1.5f, 0.0f);
+        float playerOffset = (float)(Mathf.Abs(playerT.position.z) - zPositionOffset);
+        playerT.position = new Vector3(0.0f, .97f, 1.5f + playerOffset);
         yield return new WaitForSeconds(0.125f);//Prevents audio distortion
-        playerScript.PlayDeathSound();
     }
 }
