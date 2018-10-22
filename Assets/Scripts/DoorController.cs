@@ -28,57 +28,39 @@ public class DoorController : MonoBehaviour {
         {
             if (isOpen)
             {
-                StartCoroutine(RotateDoor());
+                CloseDoor();
             }
             else
             {
-                StartCoroutine(RotateDoor());
+                OpenDoor();
             }
         }
     }
 
+    //Rotates door into appropriate position
     IEnumerator RotateDoor()
     {
         for (int i = 0; i < degOfRotation; i++)
         {
-            print(Time.time);
-            yield return new WaitForSeconds(0.125f);
+            door.RotateAround(hingePos, Vector3.up, rotationDir);
+            yield return new WaitForSeconds(0.001f);
         }
+        rotationDir *= -1;
     }
 
-    ////Rotates Door about hinge into "open" position
-    //public void OpenDoor()
-    //{
-    //    if (isOpen) return;
-    //    Debug.Log("Open door");
-    //    StartCoroutine("ThisIsStupid");
-    //    isOpen = true;
-    //}
+    //Rotates Door about hinge into "open" position
+    public void OpenDoor()
+    {
+        if (isOpen) return;
+        StartCoroutine(RotateDoor());
+        isOpen = true;
+    }
 
-    ////Rotates Door about hinge into "closed" position
-    //public void CloseDoor()
-    //{
-    //    if (!isOpen) return;
-    //    Debug.Log("Close door");
-    //    StartCoroutine("ThisIsStupid");
-    //    isOpen = false;
-    //}
-
-    //IEnumerable ThisIsStupid ()
-    //{
-    //    Debug.Log("This is stupid");
-    //    yield return new WaitForSeconds(0.125f);
-    //    Debug.Log("This is stupid");
-    //}
-
-    ////IEnumerable RotateDoor()
-    ////{
-    ////    Debug.Log("rotating door");
-    ////    for (int i = 0; i < degOfRotation; i++)
-    ////    {
-    ////        door.RotateAround(hingePos, Vector3.up, 1.0f * rotationDir);
-    ////        yield return new WaitForSeconds(0.125f); // Prevents audio distortion
-    ////    }
-    ////    Debug.Log("done rotating door");
-    ////}
+    //Rotates Door about hinge into "closed" position
+    public void CloseDoor()
+    {
+        if (!isOpen) return;
+        StartCoroutine(RotateDoor());
+        isOpen = false;
+    }
 }
