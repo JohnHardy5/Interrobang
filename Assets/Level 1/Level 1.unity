@@ -4831,9 +4831,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d90ff7a23f33de45ac28e2751f58eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hinge: {fileID: 1576142280}
   door: {fileID: 1580102696}
-  rotateClockwise: 0
+  hinge: {fileID: 1576142280}
+  rotateClockwise: 1
+  isOpen: 0
   degOfRotation: 90
 --- !u!1 &758620532
 GameObject:
