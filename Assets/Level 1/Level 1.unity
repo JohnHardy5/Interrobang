@@ -6580,13 +6580,8 @@ GameObject:
   - component: {fileID: 985532887}
   - component: {fileID: 985532886}
   m_Layer: 0
-<<<<<<< HEAD
   m_Name: Button
-  m_TagString: Untagged
-=======
-  m_Name: Cylinder
   m_TagString: Button
->>>>>>> e92445917909dfffa3020c676794aac18772dbeb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7981,11 +7976,7 @@ Transform:
   - {fileID: 835510603}
   - {fileID: 1861176425}
   - {fileID: 347201752}
-<<<<<<< HEAD
   - {fileID: 985532889}
-=======
-  - {fileID: 758501241}
->>>>>>> e92445917909dfffa3020c676794aac18772dbeb
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
