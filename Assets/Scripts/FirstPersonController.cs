@@ -40,8 +40,6 @@ public class FirstPersonController : MonoBehaviour
     private bool m_Jumping;
     private AudioSource m_AudioSource;
     public GameObject gameManager;
-    Quaternion m_StartingCameraPosition;
-    Transform m_StartingPosition;
 
 
     // Use this for initialization
@@ -51,8 +49,6 @@ public class FirstPersonController : MonoBehaviour
         m_CharacterController = GetComponent<CharacterController>();
         m_Camera = Camera.main;
         m_OriginalCameraPosition = m_Camera.transform.localPosition;
-        m_StartingPosition = transform;
-        m_StartingCameraPosition = m_Camera.transform.rotation;
         m_FovKick.Setup(m_Camera);
         m_HeadBob.Setup(m_Camera, m_StepInterval);
         m_StepCycle = 0f;
@@ -271,15 +267,24 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
+    void openDoor()
+    {
+        GameObject doorHinge = GameObject.Find("Door Hinge");
+        doorHinge.transform.Rotate(0, Time.deltaTime * 10, 0);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Spikes"))
         {
-
             StartCoroutine(KillPlayer());
         }
+
+        if (other.gameObject.CompareTag("Button"))
+        {
+            openDoor();
+        }
     }
-    bool flag = true;
 
     private void RotateView()
     {
