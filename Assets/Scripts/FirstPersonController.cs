@@ -40,14 +40,15 @@ public class FirstPersonController : MonoBehaviour
     private bool m_Jumping;
     private AudioSource m_AudioSource;
     public GameObject gameManager;
+    public DoorController DC;
 
 
     // Use this for initialization
     private void Start()
     {
         gameManager = GameObject.Find("Game Manager");
-        m_CharacterController = GetComponent<CharacterController>();
         m_Camera = Camera.main;
+        m_CharacterController = GetComponent<CharacterController>();
         m_OriginalCameraPosition = m_Camera.transform.localPosition;
         m_FovKick.Setup(m_Camera);
         m_HeadBob.Setup(m_Camera, m_StepInterval);
@@ -267,12 +268,6 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
-    void openDoor()
-    {
-        GameObject doorHinge = GameObject.Find("Door Hinge");
-        doorHinge.transform.Rotate(0, Time.deltaTime * 10, 0);
-    }
-
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Spikes"))
@@ -282,7 +277,7 @@ public class FirstPersonController : MonoBehaviour
 
         if (other.gameObject.CompareTag("Button"))
         {
-            openDoor();
+            DC.OpenDoor();
         }
     }
 
