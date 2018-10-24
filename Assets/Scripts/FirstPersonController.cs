@@ -228,23 +228,21 @@ public class FirstPersonController : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
         }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Spikes"))
-        {
-            Kill();
-        }
-
-        if (other.gameObject.CompareTag("Button"))
-        {
-            DC.OpenDoor();
-        }
-    }
+    } 
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        if (hit.gameObject.CompareTag("Spikes"))
+        {
+            Kill();
+            return;
+        }
+        if (hit.gameObject.CompareTag("Button"))
+        {
+            DC.OpenDoor();
+            return;
+        }
+
         Rigidbody body = hit.collider.attachedRigidbody;
         //dont move the rigidbody if the character is on top of it
         if (m_CollisionFlags == CollisionFlags.Below)
