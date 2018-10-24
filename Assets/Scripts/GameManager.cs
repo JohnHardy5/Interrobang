@@ -62,25 +62,11 @@ public class GameManager : MonoBehaviour {
         //}
 
 
-        if (playerT.position.y < pointOfNoReturn) StartCoroutine(KillPlayer());
+        if (playerT.position.y < pointOfNoReturn) playerScript.Kill();
         if (playerT.position.x >= loopingSectionX && playerT.position.z >= loopingSectionZ)
         {
-            
-            StartCoroutine(TeleportPlayer());
+
+            playerScript.Teleport(new Vector3(0.0f, .97f, 1.5f));
         }
-    }
-
-    IEnumerator KillPlayer ()
-    {
-        playerT.position = this.transform.position;
-        yield return new WaitForSeconds(0.125f); // Prevents audio distortion
-        playerScript.PlayDeathSound();
-    }
-
-    IEnumerator TeleportPlayer()
-    {
-        float playerOffset = (float)(Mathf.Abs(playerT.position.z) - zPositionOffset);
-        playerT.position = new Vector3(0.0f, .97f, 1.5f + playerOffset);
-        yield return new WaitForSeconds(0.125f);//Prevents audio distortion
     }
 }

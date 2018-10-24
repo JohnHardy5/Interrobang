@@ -39,14 +39,14 @@ public class FirstPersonController : MonoBehaviour
     private float m_NextStep;
     private bool m_Jumping;
     private AudioSource m_AudioSource;
-    public GameObject gameManager;
+    public GameObject GM;
+    public GameManager GMscript;
     public DoorController DC;
 
 
     // Use this for initialization
     private void Start()
     {
-        gameManager = GameObject.Find("Game Manager");
         m_Camera = Camera.main;
         m_CharacterController = GetComponent<CharacterController>();
         m_OriginalCameraPosition = m_Camera.transform.localPosition;
@@ -85,22 +85,6 @@ public class FirstPersonController : MonoBehaviour
         m_PreviouslyGrounded = m_CharacterController.isGrounded;
     }
 
-
-    private void PlayLandingSound()
-    {
-        m_AudioSource.clip = m_LandSound;
-        m_AudioSource.Play();
-        m_NextStep = m_StepCycle + .5f;
-    }
-
-
-    float timeToIncrease;
-    float amountToIncrease;
-    float startTime;
-    float endTime;
-    float timer;
-
-
     private void FixedUpdate()
     {
         float speed;
@@ -112,35 +96,7 @@ public class FirstPersonController : MonoBehaviour
         RaycastHit hitInfo;
 
         Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo, m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
-        desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal);//.normalized;
-
-        //if (m_Jumping)
-        //{
-        //    //if (input.getkeydown("s"))
-        //    //{
-        //    //    starttime = time.time;
-        //    //}
-        //    if (m_Input.y >= 0)
-        //    {
-        //        m_MoveDir.x = desiredMove.x * speed;
-        //        m_MoveDir.z = desiredMove.z * speed;
-        //    } else
-        //    {
-        //        //Debug.Log("start time " + startTime);
-        //        //Debug.Log("Time " + Time.time);
-        //        m_MoveDir.x = desiredMove.x * - (speed - (Math.Abs(Time.time - startTime)*25));
-        //        m_MoveDir.z = desiredMove.z * - (speed - (Math.Abs(Time.time - startTime)*25));
-        //    }
-
-        //    //if (Input.GetKeyUp("s"))
-        //    //{
-        //    //    endTime = Time.time;
-        //    //}
-        //} else
-        //{
-        //    m_MoveDir.x = desiredMove.x * speed;
-        //    m_MoveDir.z = desiredMove.z * speed;
-        //}
+        desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal);
         m_MoveDir.x = desiredMove.x * speed;
         m_MoveDir.z = desiredMove.z * speed;
 
@@ -178,6 +134,12 @@ public class FirstPersonController : MonoBehaviour
         m_AudioSource.Play();
     }
 
+    private void PlayLandingSound()
+    {
+        m_AudioSource.clip = m_LandSound;
+        m_AudioSource.Play();
+        m_NextStep = m_StepCycle + .5f;
+    }
 
     private void ProgressStepCycle(float speed)
     {
@@ -272,7 +234,7 @@ public class FirstPersonController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Spikes"))
         {
-            StartCoroutine(KillPlayer());
+            Kill();
         }
 
         if (other.gameObject.CompareTag("Button"))
@@ -280,26 +242,6 @@ public class FirstPersonController : MonoBehaviour
             DC.OpenDoor();
         }
     }
-
-    private void RotateView()
-    {
-            m_MouseLook.LookRotation(transform, m_Camera.transform);
-    }
-
-    private void RotateViewCutscene()
-    {
-        m_MouseLook.LookRotationCutscene(transform, m_Camera.transform);
-    }
-
-    IEnumerator KillPlayer()
-    {
-
-        RotateViewCutscene();
-        this.transform.position = gameManager.transform.position;
-        yield return new WaitForSeconds(0.125f); // Prevents audio distortion'
-        PlayDeathSound();
-    }
-
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -317,9 +259,34 @@ public class FirstPersonController : MonoBehaviour
         body.AddForceAtPosition(m_CharacterController.velocity * 0.1f, hit.point, ForceMode.Impulse);
     }
 
-    public void PlayDeathSound()
+    private void RotateView()
     {
+            m_MouseLook.LookRotation(transform, m_Camera.transform);
+    }
+
+    private void RotateViewCutscene()
+    {
+        m_MouseLook.LookRotationCutscene(transform, m_Camera.transform);
+    }
+
+
+    public void Kill()
+    {
+        this.transform.position = GM.transform.position;
+        StartCoroutine(PlayDeathSound());
+    }
+
+    IEnumerator PlayDeathSound()
+    {
+        yield return new WaitForSeconds(0.125f); // Prevents audio distortion
         m_AudioSource.clip = m_DeathSound;
         m_AudioSource.Play();
+    }
+
+    public void Teleport(Vector3 pos)
+    {
+        double zPositionOffset = 204.5;
+        float playerOffset = (float)(Mathf.Abs(this.transform.position.z) - zPositionOffset);
+        this.transform.position = new Vector3(pos.x, pos.y, pos.z + playerOffset);
     }
 }
