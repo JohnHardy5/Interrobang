@@ -23,22 +23,22 @@ public class GameManager : MonoBehaviour {
     private Rigidbody playerRB;
     private Transform playerT;
     public GameObject Level;
-    private float timeToWait;
-    private float timeOfLastRotation;
+    //private float timeToWait;
+    //private float timeOfLastRotation;
 
     // Use this for initialization
     void Start () {
         playerScript = playerGO.GetComponent<FirstPersonController>();
         playerRB = playerGO.GetComponent<Rigidbody>();
         playerT = playerGO.GetComponent<Transform>();
-        timeToWait = 2f;
-        timeOfLastRotation = Time.time;
+        //timeToWait = 2f;
+        //timeOfLastRotation = Time.time;
     }
 
-    int timeOfRotation = 0;
-    bool enoughTimePassed = false;
-    int angleOfRotation = 90;
-    int amountRotated = 0;
+    //int timeOfRotation = 0;
+    //bool enoughTimePassed = false;
+    //int angleOfRotation = 90;
+    //int amountRotated = 0;
 
     private void Update()
     {
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour {
         if (playerT.position.x >= loopingSectionX && playerT.position.z >= loopingSectionZ)
         {
             
-            StartCoroutine(teleportPlayer());
+            StartCoroutine(TeleportPlayer());
         }
     }
 
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour {
         playerScript.PlayDeathSound();
     }
 
-    IEnumerator teleportPlayer()
+    IEnumerator TeleportPlayer()
     {
         float playerOffset = (float)(Mathf.Abs(playerT.position.z) - zPositionOffset);
         playerT.position = new Vector3(0.0f, .97f, 1.5f + playerOffset);

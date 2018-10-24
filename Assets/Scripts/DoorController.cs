@@ -12,7 +12,7 @@ public class DoorController : MonoBehaviour {
 
     private Vector3 hingePos;
     int rotationDir = 1;
-
+    private bool isMoving = false;
 
 
     // Use this for initialization
@@ -40,18 +40,20 @@ public class DoorController : MonoBehaviour {
     //Rotates door into appropriate position
     IEnumerator RotateDoor()
     {
+        isMoving = true;
         for (int i = 0; i < degOfRotation; i++)
         {
             door.RotateAround(hingePos, Vector3.up, rotationDir);
             yield return new WaitForSeconds(0.001f);
         }
         rotationDir *= -1;
+        isMoving = false;
     }
 
     //Rotates Door about hinge into "open" position
     public void OpenDoor()
     {
-        if (isOpen) return;
+        if (isOpen || isMoving) return;
         StartCoroutine(RotateDoor());
         isOpen = true;
     }
@@ -59,7 +61,7 @@ public class DoorController : MonoBehaviour {
     //Rotates Door about hinge into "closed" position
     public void CloseDoor()
     {
-        if (!isOpen) return;
+        if (!isOpen || isMoving) return;
         StartCoroutine(RotateDoor());
         isOpen = false;
     }
