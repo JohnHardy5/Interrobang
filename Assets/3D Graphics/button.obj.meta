@@ -5,12 +5,24 @@ ModelImporter:
   fileIDToRecycleName:
     100000: //RootNode
     100002: default
+    100004: Cylinder.001_Cylinder.001_Material.002
+    100006: Cylinder_Cylinder_Material.001
     400000: //RootNode
     400002: default
+    400004: Cylinder.001_Cylinder.001_Material.002
+    400006: Cylinder_Cylinder_Material.001
     2100000: defaultMat
+    2100002: Cylinder.001_Cylinder.001_Material.002Mat
+    2100004: Cylinder_Cylinder_Material.001Mat
     2300000: default
+    2300002: Cylinder.001_Cylinder.001_Material.002
+    2300004: Cylinder_Cylinder_Material.001
     3300000: default
+    3300002: Cylinder.001_Cylinder.001_Material.002
+    3300004: Cylinder_Cylinder_Material.001
     4300000: default
+    4300002: Cylinder.001_Cylinder.001_Material.002
+    4300004: Cylinder_Cylinder_Material.001
   externalObjects: {}
   materials:
     importMaterials: 1
