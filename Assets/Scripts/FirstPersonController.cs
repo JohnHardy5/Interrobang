@@ -41,7 +41,6 @@ public class FirstPersonController : MonoBehaviour
     private AudioSource m_AudioSource;
     public GameObject GM;
     public GameManager GMscript;
-    public DoorController DC;
 
 
     // Use this for initialization
@@ -239,7 +238,8 @@ public class FirstPersonController : MonoBehaviour
         }
         if (hit.gameObject.CompareTag("Button"))
         {
-            DC.OpenDoor();
+            //Debug.Log("Hit a button");
+            hit.gameObject.GetComponentInParent<ButtonController>().PressButton();
             return;
         }
 

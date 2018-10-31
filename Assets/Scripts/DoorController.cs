@@ -8,10 +8,12 @@ public class DoorController : MonoBehaviour {
     public Transform hinge;
     public bool rotateClockwise;
     public bool isOpen;
-    public int degOfRotation;
+    public int numTimesToIterate;
+    public float rotationDistance;
+    public float waitTime;
 
     private Vector3 hingePos;
-    int rotationDir = 1;
+    private int rotationDir = 1;
     private bool isMoving = false;
 
 
@@ -41,10 +43,10 @@ public class DoorController : MonoBehaviour {
     IEnumerator RotateDoor()
     {
         isMoving = true;
-        for (int i = 0; i < degOfRotation; i++)
+        for (int i = 0; i < numTimesToIterate; i++)
         {
-            door.RotateAround(hingePos, Vector3.up, rotationDir);
-            yield return new WaitForSeconds(0.001f);
+            door.RotateAround(hingePos, Vector3.up, rotationDistance * rotationDir);
+            yield return new WaitForSeconds(waitTime);
         }
         rotationDir *= -1;
         isMoving = false;
