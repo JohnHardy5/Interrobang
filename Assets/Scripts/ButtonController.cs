@@ -9,11 +9,21 @@ public class ButtonController : MonoBehaviour {
     public int numTimesToIterate;
     public float moveDistance;
     public float waitTime;
+    public float checkTime;
 
     private bool isUp = true;
     private bool isMoving = false;
+    private bool isPressed = false;
     private int moveDir = -1;
-    
+
+    //Figure out if we were pressed in the last frame and then release when we are no longer pressed
+    private void Update()
+    {
+        //if (!isUp) StartCoroutine(CheckButton());
+        //isPressed = false;
+    }
+
+    //Move button into next state
     IEnumerator MoveButton()
     {
         isMoving = true;
@@ -26,9 +36,23 @@ public class ButtonController : MonoBehaviour {
         isMoving = false;
     }
 
+    //Check if button is depressed, wait an instant, and then check again. If the button is no longer pressed, release the button.
+    IEnumerator CheckButton()
+    {
+        if (isPressed)
+        {
+            yield return new WaitForSeconds(checkTime);
+            if (!isPressed)
+            {
+                ReleaseButton();
+            }
+        }
+    }
+
     //Moves button into "down" state
     public void PressButton ()
     {
+        isPressed = true;
         if (!isUp || isMoving) return;
         StartCoroutine(MoveButton());
         doorToOpen.OpenDoor();

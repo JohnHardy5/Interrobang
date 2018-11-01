@@ -16855,6 +16855,7 @@ MonoBehaviour:
   numTimesToIterate: 10
   moveDistance: 0.02
   waitTime: 0.001
+  checkTime: 0.1
 --- !u!4 &1128854317 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 2147b25a3f0103a4a9fb3fdc30a614d6,
