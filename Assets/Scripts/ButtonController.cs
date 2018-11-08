@@ -8,12 +8,22 @@ public class ButtonController : MonoBehaviour {
     public Transform buttonPressT;
     public int numTimesToIterate;
     public float moveDistance;
-    public float waitTime;
-    public float checkTime;
+    public float animationTime;
+    public float buttonHoldTime;
 
     private bool isUp = true;
     private bool isMoving = false;
     private int moveDir = -1;
+    private float timer = 0.0f;
+
+    //Checks the timer to release the button automatically, if the button is down.
+    private void Update()
+    {
+        if (!isUp && Time.time - timer > buttonHoldTime)
+        {
+            ReleaseButton();
+        }
+    }
 
     //Move button into next state
     IEnumerator MoveButton()
@@ -22,31 +32,28 @@ public class ButtonController : MonoBehaviour {
         for (int i = 0; i < numTimesToIterate; i++)
         {
             buttonPressT.Translate(0.0f, moveDistance * moveDir, 0.0f);
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(animationTime);
         }
         moveDir *= -1;
         isMoving = false;
     }
 
-    //Set a timer to release the button. If the coroutine is not stopped in time, release the button.
-    IEnumerator CheckButton ()
+    //Start a timer to release the button. If the timer is not reset in time, release the button.
+    void StartTimer ()
     {
-        yield return new WaitForSeconds(checkTime);
-        //ReleaseButton();
-        Debug.Log("Release Button");
+        timer = Time.time;
     }
 
     //Moves button into "down" state
     public void PressButton ()
     {
-        StopCoroutine(CheckButton());
-        StartCoroutine(CheckButton());
         if (isUp && !isMoving)
         {
             StartCoroutine(MoveButton());
             doorToOpen.OpenDoor();
             isUp = false;
         }
+        StartTimer();
     }
 
     //Moves button in "up" state
