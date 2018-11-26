@@ -6,16 +6,16 @@ public class PlayerStick : MonoBehaviour {
 
     public GameObject player;
 
-    private Quaternion rotation;
+    private Quaternion playerRot;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == player)
         {
-            rotation = player.transform.rotation;
-            Debug.Log(rotation);
+            playerRot = player.transform.rotation;
+            Debug.Log(playerRot);
             other.transform.parent = transform;
-            player.transform.rotation = rotation;
+            player.transform.rotation = playerRot * transform.rotation;
             Debug.Log(player.transform.rotation);
         }
     }

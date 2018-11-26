@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour {
         //}
 
 
-        if (playerT.position.y < pointOfNoReturn) playerScript.Kill();
+        // if (playerT.position.y < pointOfNoReturn) playerScript.Kill();
         if (playerT.position.x >= loopingSectionX && playerT.position.z >= loopingSectionZ)
         {
 
