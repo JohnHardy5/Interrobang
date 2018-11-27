@@ -238,7 +238,6 @@ public class FirstPersonController : MonoBehaviour
         }
         if (hit.gameObject.CompareTag("Button"))
         {
-            //Debug.Log("Hit a button");
             hit.gameObject.GetComponentInParent<ButtonController>().PressButton();
             return;
         }
@@ -270,7 +269,7 @@ public class FirstPersonController : MonoBehaviour
 
     public void Kill()
     {
-        this.transform.position = GM.transform.position;
+        this.transform.position = GMscript.respawnLocation;
         StartCoroutine(PlayDeathSound());
     }
 

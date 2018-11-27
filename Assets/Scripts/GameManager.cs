@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
     public GameObject Level_1;
     public GameObject Level_2;
     public GameObject Level_3;
+    [HideInInspector] public Vector3 respawnLocation;//Don't want anyone messing with this
 
     public GameObject playerGO;
     private FirstPersonController playerScript;
@@ -27,7 +28,6 @@ public class GameManager : MonoBehaviour {
     private double loopingSectionX = 7.0;
     private double loopingSectionZ = 202;
     private double zPositionOffset = 204.5;
-    private Vector3 respawnLocation;
 
     // Use this for initialization
     void Start () {
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour {
 
     private void Update()
     {
-        // if (playerT.position.y < pointOfNoReturn) playerScript.Kill();
+        if (playerT.position.y < pointOfNoReturn) playerScript.Kill();
         if (playerT.position.x >= loopingSectionX && playerT.position.z >= loopingSectionZ)
         {
             playerScript.Teleport(respawnLocation);
