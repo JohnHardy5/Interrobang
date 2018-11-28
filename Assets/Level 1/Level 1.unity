@@ -581,6 +581,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114837506312697760, guid: c61d9cd57793caa4595be7d1116d83a0,
+        type: 2}
+      propertyPath: m_FootstepSounds.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4914229023052266, guid: c61d9cd57793caa4595be7d1116d83a0, type: 2}
       propertyPath: m_LocalPosition.x
       value: -31.99
@@ -669,6 +674,16 @@ Prefab:
       propertyPath: DeathAudioSource
       value: 
       objectReference: {fileID: 830424374}
+    - target: {fileID: 114837506312697760, guid: c61d9cd57793caa4595be7d1116d83a0,
+        type: 2}
+      propertyPath: m_FootstepSounds.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a9383dda6cabc047b7a297602e93eb4, type: 3}
+    - target: {fileID: 114837506312697760, guid: c61d9cd57793caa4595be7d1116d83a0,
+        type: 2}
+      propertyPath: m_FootstepSounds.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c61d9cd57793caa4595be7d1116d83a0, type: 2}
   m_IsPrefabAsset: 0
