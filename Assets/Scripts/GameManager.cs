@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
     public GameObject Level_1;
     public GameObject Level_2;
     public GameObject Level_3;
+    public int numberOfLevels;
     [HideInInspector] public Vector3 respawnLocation;//Don't want anyone messing with this
 
     public GameObject playerGO;
@@ -81,6 +82,7 @@ public class GameManager : MonoBehaviour {
     public void IncrementLevel()
     {
         currentLevel++;
+        currentLevel = Mathf.Min(currentLevel, numberOfLevels);
         respawnLocation = FindSpawnLocation(currentLevel);
     }
 }

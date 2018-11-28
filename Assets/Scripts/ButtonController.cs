@@ -17,6 +17,7 @@ public class ButtonController : MonoBehaviour {
     private bool isMoving = false;
     private int moveDir = -1;
     private float timer = 0.0f;
+    private bool hasBeenPressed = false;
 
     private void Start()
     {
@@ -57,7 +58,11 @@ public class ButtonController : MonoBehaviour {
         if (isUp && !isMoving)
         {
             StartCoroutine(MoveButton());
-            GMscript.IncrementLevel();
+            if (!hasBeenPressed)
+            {
+                GMscript.IncrementLevel();
+                hasBeenPressed = true;
+            }
             doorToOpen.OpenDoor();
             isUp = false;
         }
