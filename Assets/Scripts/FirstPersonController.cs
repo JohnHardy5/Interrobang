@@ -28,6 +28,7 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private AudioSource DeathAudioSource;    // audio source for player death
     public GameObject GM;
     public GameManager GMscript;
+    public Transform PlayerCharacter;
 
     private Camera m_Camera;
     private bool m_Jump;
@@ -271,8 +272,8 @@ public class FirstPersonController : MonoBehaviour
         if (!canKill) return;
         canKill = false;
         this.transform.position = GMscript.respawnLocation;
-        Debug.Log("rotating player");
-        this.transform.rotation = Quaternion.Euler(0, 90, 0);//Turn the player to face the correct direction
+        this.transform.eulerAngles = new Vector3(0, 90, 0);
+        //PlayerCharacter.eulerAngles = new Vector3(0, 90, 0);
         StartCoroutine(PlayDeathSound());
     }
 
