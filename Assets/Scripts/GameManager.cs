@@ -50,12 +50,28 @@ public class GameManager : MonoBehaviour {
     {
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
         foreach (GameObject spawnPoint in spawnPoints)
-        {//Check the last character in the level's name to make sure that we have the right level's spawn point.
-            string spawnLevelName = spawnPoint.transform.parent.name;
-            int spawnLevelNumber = (int)char.GetNumericValue((spawnLevelName[spawnLevelName.Length - 1]));
-            if (spawnLevelNumber == currLevel)
+        {//Ensure that the parent of the spawn point is the same GameObject as the current level
+            GameObject spawnParent = spawnPoint.transform.parent.gameObject;
+            switch (currLevel)
             {
-                return spawnPoint.transform.position;
+                case 1:
+                    if (spawnParent == Level_1)
+                    {
+                        return spawnPoint.transform.position;
+                    }
+                    break;
+                case 2:
+                    if (spawnParent == Level_2)
+                    {
+                        return spawnPoint.transform.position;
+                    }
+                    break;
+                case 3:
+                    if (spawnParent == Level_3)
+                    {
+                        return spawnPoint.transform.position;
+                    }
+                    break;
             }
         }
         Debug.LogError("Spawn point not found, using default location!");
