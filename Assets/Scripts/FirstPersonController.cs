@@ -24,7 +24,8 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
     [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
     [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
-    [SerializeField] private AudioClip m_DeathSound;          // the sound played when character dies.
+    [SerializeField] private AudioSource m_AudioSource;       // audio source for player movement
+    [SerializeField] private AudioSource DeathAudioSource;    // audio source for player death
     public GameObject GM;
     public GameManager GMscript;
 
@@ -40,7 +41,6 @@ public class FirstPersonController : MonoBehaviour
     private float m_StepCycle;
     private float m_NextStep;
     private bool m_Jumping;
-    private AudioSource m_AudioSource;
     private bool canKill = true;
 
     // Use this for initialization
@@ -54,7 +54,6 @@ public class FirstPersonController : MonoBehaviour
         m_StepCycle = 0f;
         m_NextStep = m_StepCycle / 2f;
         m_Jumping = false;
-        m_AudioSource = GetComponent<AudioSource>();
         m_MouseLook.Init(transform, m_Camera.transform);
     }
 
@@ -280,8 +279,7 @@ public class FirstPersonController : MonoBehaviour
     IEnumerator PlayDeathSound()
     {
         yield return new WaitForSeconds(0.125f); // Prevents audio distortion
-        m_AudioSource.clip = m_DeathSound;
-        m_AudioSource.Play();
+        DeathAudioSource.Play();
         canKill = true;
     }
 
