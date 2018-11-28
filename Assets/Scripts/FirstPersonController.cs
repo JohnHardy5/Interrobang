@@ -25,6 +25,8 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
     [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
     [SerializeField] private AudioClip m_DeathSound;          // the sound played when character dies.
+    public GameObject GM;
+    public GameManager GMscript;
 
     private Camera m_Camera;
     private bool m_Jump;
@@ -39,9 +41,7 @@ public class FirstPersonController : MonoBehaviour
     private float m_NextStep;
     private bool m_Jumping;
     private AudioSource m_AudioSource;
-    public GameObject GM;
-    public GameManager GMscript;
-
+    private bool canKill = true;
 
     // Use this for initialization
     private void Start()
@@ -269,7 +269,11 @@ public class FirstPersonController : MonoBehaviour
 
     public void Kill()
     {
+        if (!canKill) return;
+        canKill = false;
         this.transform.position = GMscript.respawnLocation;
+        Debug.Log("rotating player");
+        this.transform.rotation = Quaternion.Euler(0, 90, 0);//Turn the player to face the correct direction
         StartCoroutine(PlayDeathSound());
     }
 
@@ -278,6 +282,7 @@ public class FirstPersonController : MonoBehaviour
         yield return new WaitForSeconds(0.125f); // Prevents audio distortion
         m_AudioSource.clip = m_DeathSound;
         m_AudioSource.Play();
+        canKill = true;
     }
 
     public void Teleport(Vector3 pos)
