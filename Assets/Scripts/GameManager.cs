@@ -81,5 +81,6 @@ public class GameManager : MonoBehaviour {
     public void IncrementLevel()
     {
         currentLevel++;
+        respawnLocation = FindSpawnLocation(currentLevel);
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ButtonController : MonoBehaviour {
 
+    public GameObject GameManager;
     public DoorController doorToOpen;
     public Transform buttonPressT;
     public int numTimesToIterate;
@@ -11,10 +12,16 @@ public class ButtonController : MonoBehaviour {
     public float animationTime;
     public float buttonHoldTime;
 
+    private GameManager GMscript;
     private bool isUp = true;
     private bool isMoving = false;
     private int moveDir = -1;
     private float timer = 0.0f;
+
+    private void Start()
+    {
+        GMscript = GameManager.GetComponent<GameManager>();
+    }
 
     //Checks the timer to release the button automatically, if the button is down.
     private void Update()
@@ -50,6 +57,7 @@ public class ButtonController : MonoBehaviour {
         if (isUp && !isMoving)
         {
             StartCoroutine(MoveButton());
+            GMscript.IncrementLevel();
             doorToOpen.OpenDoor();
             isUp = false;
         }
