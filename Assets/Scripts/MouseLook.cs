@@ -54,10 +54,8 @@ public class MouseLook
 
     public void LookRotationCutscene(Transform character, Transform camera)
     {
-        float originalOrientation = (float)(.7);
-        Quaternion originalRotation = new Quaternion(0, originalOrientation, 0, originalOrientation);
-        m_CharacterTargetRot = originalRotation;
-        m_CameraTargetRot = camera.localRotation;
+        m_CharacterTargetRot = Quaternion.Euler(0, 90, 0);
+        m_CameraTargetRot = Quaternion.Euler(0,0,0);
     }
 
     public void SetCursorLock(bool value)

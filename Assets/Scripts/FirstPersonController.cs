@@ -43,10 +43,12 @@ public class FirstPersonController : MonoBehaviour
     private float m_NextStep;
     private bool m_Jumping;
     private bool canKill = true;
+    public GameObject gameManager;
 
     // Use this for initialization
     private void Start()
     {
+        gameManager = GameObject.Find("Game Manager");
         m_Camera = Camera.main;
         m_CharacterController = GetComponent<CharacterController>();
         m_OriginalCameraPosition = m_Camera.transform.localPosition;
@@ -258,7 +260,7 @@ public class FirstPersonController : MonoBehaviour
 
     private void RotateView()
     {
-            m_MouseLook.LookRotation(transform, m_Camera.transform);
+        m_MouseLook.LookRotation(transform, m_Camera.transform);
     }
 
     private void RotateViewCutscene()
@@ -266,11 +268,11 @@ public class FirstPersonController : MonoBehaviour
         m_MouseLook.LookRotationCutscene(transform, m_Camera.transform);
     }
 
-
-    public void Kill()
+        public void Kill()
     {
         if (!canKill) return;
         canKill = false;
+        RotateViewCutscene();
         this.transform.position = GMscript.respawnLocation;
         this.transform.eulerAngles = new Vector3(0, 90, 0);
         //PlayerCharacter.eulerAngles = new Vector3(0, 90, 0);
