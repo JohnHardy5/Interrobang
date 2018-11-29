@@ -3,26 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ButtonController : MonoBehaviour {
-
-    public GameObject GameManager;
+    
     public DoorController doorToOpen;
     public Transform buttonPressT;
     public int numTimesToIterate;
     public float moveDistance;
     public float animationTime;
     public float buttonHoldTime;
-
-    private GameManager GMscript;
+    
     private bool isUp = true;
     private bool isMoving = false;
     private int moveDir = -1;
     private float timer = 0.0f;
-    private bool hasBeenPressed = false;
-
-    private void Start()
-    {
-        GMscript = GameManager.GetComponent<GameManager>();
-    }
 
     //Checks the timer to release the button automatically, if the button is down.
     private void Update()
@@ -58,11 +50,6 @@ public class ButtonController : MonoBehaviour {
         if (isUp && !isMoving)
         {
             StartCoroutine(MoveButton());
-            if (!hasBeenPressed)
-            {
-                GMscript.IncrementLevel();
-                hasBeenPressed = true;
-            }
             doorToOpen.OpenDoor();
             isUp = false;
         }

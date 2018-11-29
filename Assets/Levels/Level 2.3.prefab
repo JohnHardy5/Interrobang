@@ -1399,7 +1399,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4381992181517670}
   m_Layer: 8
-  m_Name: Level 2.1
+  m_Name: Level 2.3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11989,6 +11989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9be78cacc7be9614d87154e86e02dee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameManager: {fileID: 0}
   doorToOpen: {fileID: 114336446245750788}
   buttonPressT: {fileID: 4799701925082512}
   numTimesToIterate: 5
