@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class LoopingScript : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public bool isLoopingSection;
+
+    private GameManager GM;
+    private FirstPersonController PC;
+    private bool hasBeenTriggered = false;
+
+    // Use this for initialization
+    void Start()
+    {
+        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        PC = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!hasBeenTriggered && !isLoopingSection)
+        {
+            PC.Teleport();
+        }
+        hasBeenTriggered = true;
+    }
 }
