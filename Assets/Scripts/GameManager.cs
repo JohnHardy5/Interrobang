@@ -41,10 +41,10 @@ public class GameManager : MonoBehaviour {
     private void Update()
     {
         if (playerT.position.y < pointOfNoReturn) playerScript.Kill();
-        if (playerT.position.x >= loopingSectionX && playerT.position.z >= loopingSectionZ)
+        /*if (playerT.position.x >= loopingSectionX && playerT.position.z >= loopingSectionZ)
         {
             playerScript.Teleport(respawnLocation);
-        }
+        }*/
     }
 
     private Vector3 FindSpawnLocation(int currLevel)
