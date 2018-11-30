@@ -275,7 +275,6 @@ public class FirstPersonController : MonoBehaviour
         RotateViewCutscene();
         this.transform.position = GMscript.respawnLocation;
         this.transform.eulerAngles = new Vector3(0, 90, 0);
-        //PlayerCharacter.eulerAngles = new Vector3(0, 90, 0);
         StartCoroutine(PlayDeathSound());
     }
 
