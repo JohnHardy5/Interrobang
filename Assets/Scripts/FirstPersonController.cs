@@ -243,11 +243,6 @@ public class FirstPersonController : MonoBehaviour
             hit.gameObject.GetComponentInParent<ButtonController>().PressButton();
             return;
         }
-        if (hit.gameObject.CompareTag("Loop"))
-        {
-            Kill();
-            return;
-        }
 
         Rigidbody body = hit.collider.attachedRigidbody;
         //dont move the rigidbody if the character is on top of it
@@ -295,6 +290,6 @@ public class FirstPersonController : MonoBehaviour
     {
         double zPositionOffset = 204.5;
         float playerOffset = (float)(Mathf.Abs(this.transform.position.z) - zPositionOffset);
-        this.transform.position = new Vector3(pos.x, pos.y, pos.z + playerOffset);
+        this.transform.position = pos;
     }
 }
