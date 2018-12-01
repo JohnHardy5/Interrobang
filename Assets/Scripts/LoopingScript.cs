@@ -21,7 +21,7 @@ public class LoopingScript : MonoBehaviour {
     {
         if (!hasBeenTriggered && !isLoopingSection)
         {
-            PC.Teleport();
+            PC.Teleport(GM.respawnLocation);
         }
         hasBeenTriggered = true;
     }
