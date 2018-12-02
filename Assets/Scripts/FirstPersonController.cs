@@ -287,8 +287,6 @@ public class FirstPersonController : MonoBehaviour
 
     public void Teleport(Vector3 pos)
     {
-        double zPositionOffset = 204.5;
-        float playerOffset = (float)(Mathf.Abs(this.transform.position.z) - zPositionOffset);
         this.transform.position = pos;
     }
 }

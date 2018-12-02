@@ -17,7 +17,7 @@ public class LoopingScript : MonoBehaviour {
     private Vector3 PlayerPosition;
     private float playerOffsetZ;
     private float playerOffsetY;
-    float loopCounter;
+    public float loopCounter;
     // Use this for initialization
     void Start()
     {
@@ -31,18 +31,18 @@ public class LoopingScript : MonoBehaviour {
 
     void Update()
     {
-        double playerWidth = 0.97999999;
+        double playerHeight = 0.97999999;
         playerOffsetZ = (float)(Mathf.Abs(PC.transform.position.z) - HallwayFloorPosition.z);
-        playerOffsetY = (float)(Mathf.Abs(PC.transform.position.y) - HallwayFloorPosition.y - playerWidth);
+        playerOffsetY = (float)(Mathf.Abs(PC.transform.position.y) - HallwayFloorPosition.y - playerHeight);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Vector3 SpawnLocationOffset = new Vector3(SpawnLocation.x, SpawnLocation.y, SpawnLocation.z);
         if (!isLoopingSection && loopCounter < 2)
         {
+            Debug.Log("Why do you do this");
             loopCounter++;
-            PC.Teleport(SpawnLocationOffset);
+            PC.Teleport(SpawnLocation);
         }
     }
 }
