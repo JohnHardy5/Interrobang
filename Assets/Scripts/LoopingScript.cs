@@ -17,6 +17,7 @@ public class LoopingScript : MonoBehaviour {
     private Vector3 PlayerPosition;
     private float playerOffsetZ;
     private float playerOffsetY;
+    float loopCounter;
     // Use this for initialization
     void Start()
     {
@@ -37,9 +38,10 @@ public class LoopingScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Vector3 SpawnLocationOffset = new Vector3(SpawnLocation.x, SpawnLocation.y + playerOffsetY, SpawnLocation.z + playerOffsetZ);
-        if (!isLoopingSection)
+        Vector3 SpawnLocationOffset = new Vector3(SpawnLocation.x, SpawnLocation.y, SpawnLocation.z);
+        if (!isLoopingSection && loopCounter < 2)
         {
+            loopCounter++;
             PC.Teleport(SpawnLocationOffset);
         }
     }
