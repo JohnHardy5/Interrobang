@@ -17,7 +17,7 @@ public class LoopingScript : MonoBehaviour {
     private Vector3 PlayerPosition;
     private float playerOffsetZ;
     private float playerOffsetY;
-    public float loopCounter;
+    public int loopCounter;
     // Use this for initialization
     void Start()
     {
@@ -31,7 +31,6 @@ public class LoopingScript : MonoBehaviour {
 
     void Update()
     {
-        double playerHeight = 0.97999999;
         if(HallwayFloorPosition.z < 0 && PC.transform.position.z < 0)
         {
             playerOffsetZ = (float)(Mathf.Abs(HallwayFloorPosition.z) - Mathf.Abs(PC.transform.position.z));
@@ -39,9 +38,6 @@ public class LoopingScript : MonoBehaviour {
         {
             playerOffsetZ = (float)(Mathf.Abs(PC.transform.position.z) - Mathf.Abs(HallwayFloorPosition.z));
         }
-        // playerOffsetZ = (float)(Mathf.Abs(HallwayFloorPosition.z)- Mathf.Abs(PC.transform.position.z));
-        playerOffsetY = (float)(Mathf.Abs(PC.transform.position.y) - Mathf.Abs(HallwayWallPosition.y));
-        //Debug.Log(playerOffsetY);
     }
 
     private void OnTriggerEnter(Collider other)
