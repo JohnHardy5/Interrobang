@@ -33,8 +33,12 @@ public class LevelOneChallenges : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        loopCounter = LS.loopCounter;
+        levelOneChallengeHandler();
+    }
 
+    void levelOneChallengeHandler()
+    {
+        loopCounter = LS.loopCounter;
         switch (loopCounter)
         {
             case 0:
@@ -51,13 +55,42 @@ public class LevelOneChallenges : MonoBehaviour {
             case 2:
                 Level1_1_1Spikes.SetActive(false);
                 Level1_1_2Spikes.SetActive(false);
-                All_Button_Groups.SetActive(true);
+                ButtonChangingHandler();
                 break;
             default:
                 Level1_1_1Spikes.SetActive(false);
                 Level1_1_2Spikes.SetActive(false);
                 All_Button_Groups.SetActive(false);
                 break;
-        }   
+        }
     }
+
+    void ButtonChangingHandler()
+    {
+        All_Button_Groups.SetActive(true);
+        Button_Group_1.SetActive(false);
+        Button_Group_2.SetActive(false);
+        Button_Group_3.SetActive(false);
+        Button_Group_4.SetActive(false);
+        Button_Group_5.SetActive(false);
+        var randomButton = Random.Range(1, 5);
+        switch (randomButton)
+        {
+            case 1:
+                Button_Group_1.SetActive(true);
+                break;
+            case 2:
+                Button_Group_2.SetActive(true);
+                break;
+            case 3:
+                Button_Group_3.SetActive(true);
+                break;
+            case 4:
+                Button_Group_4.SetActive(true);
+                break;
+            case 5:
+                Button_Group_5.SetActive(true);
+                break;
+        }
+    } 
 }
