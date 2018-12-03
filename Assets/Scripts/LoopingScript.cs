@@ -41,7 +41,7 @@ public class LoopingScript : MonoBehaviour {
         }
         // playerOffsetZ = (float)(Mathf.Abs(HallwayFloorPosition.z)- Mathf.Abs(PC.transform.position.z));
         playerOffsetY = (float)(Mathf.Abs(PC.transform.position.y) - Mathf.Abs(HallwayWallPosition.y));
-        Debug.Log(playerOffsetY);
+        //Debug.Log(playerOffsetY);
     }
 
     private void OnTriggerEnter(Collider other)
