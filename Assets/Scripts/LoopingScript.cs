@@ -50,6 +50,7 @@ public class LoopingScript : MonoBehaviour {
             DC.CloseDoor();
             Vector3 SpawnLocationOffset = new Vector3(SpawnLocation.x, SpawnLocation.y + playerOffsetY, SpawnLocation.z + playerOffsetZ);
             loopCounter++;
+            GM.currentIterration++;
             PC.Teleport(SpawnLocationOffset);
         }
     }

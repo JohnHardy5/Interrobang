@@ -18,6 +18,8 @@ public class SpawnPoint : MonoBehaviour {
     {
         if (!hasBeenTriggered && !isStartSpawn)
         {
+            GM.currentLevel++;
+            GM.currentIterration = 0;
             GM.SetSpawnLocation(transform.position);
         }
         hasBeenTriggered = true;
