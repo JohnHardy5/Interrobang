@@ -9,4 +9,9 @@ public class IntroGameManager : MonoBehaviour {
     {
         SceneManager.LoadScene("Level 1");
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

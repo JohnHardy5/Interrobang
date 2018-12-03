@@ -26,9 +26,6 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
     [SerializeField] private AudioSource m_AudioSource;       // audio source for player movement
     [SerializeField] private AudioSource DeathAudioSource;    // audio source for player death
-    public GameObject GM;
-    public GameManager GMscript;
-    public Transform PlayerCharacter;
 
     private Camera m_Camera;
     private bool m_Jump;
@@ -43,12 +40,12 @@ public class FirstPersonController : MonoBehaviour
     private float m_NextStep;
     private bool m_Jumping;
     private bool canKill = true;
-    public GameObject gameManager;
+    private GameManager GM;
 
     // Use this for initialization
     private void Start()
     {
-        gameManager = GameObject.Find("Game Manager");
+        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
         m_Camera = Camera.main;
         m_CharacterController = GetComponent<CharacterController>();
         m_OriginalCameraPosition = m_Camera.transform.localPosition;
@@ -243,6 +240,11 @@ public class FirstPersonController : MonoBehaviour
             hit.gameObject.GetComponentInParent<ButtonController>().PressButton();
             return;
         }
+        if (hit.gameObject.CompareTag("RestartGame"))
+        {
+            hit.gameObject.GetComponentInParent<LoadStartScreen>().PressButton();
+            return;
+        }
 
         Rigidbody body = hit.collider.attachedRigidbody;
         //dont move the rigidbody if the character is on top of it
@@ -268,12 +270,12 @@ public class FirstPersonController : MonoBehaviour
         m_MouseLook.LookRotationCutscene(transform, m_Camera.transform);
     }
 
-        public void Kill()
+    public void Kill()
     {
         if (!canKill) return;
         canKill = false;
         RotateViewCutscene();
-        this.transform.position = GMscript.respawnLocation;
+        this.transform.position = GM.respawnLocation;
         this.transform.eulerAngles = new Vector3(0, 90, 0);
         StartCoroutine(PlayDeathSound());
     }
