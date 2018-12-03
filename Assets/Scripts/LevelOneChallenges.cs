@@ -17,6 +17,10 @@ public class LevelOneChallenges : MonoBehaviour {
     private GameObject Button_Group_5;
     private GameObject All_Button_Groups;
 
+    private float timeSinceLastButtonChange = 0.0f;
+
+    public float buttonChangeWaitTime;
+
 
     // Use this for initialization
     void Start () {
@@ -39,6 +43,9 @@ public class LevelOneChallenges : MonoBehaviour {
     void levelOneChallengeHandler()
     {
         loopCounter = LS.loopCounter;
+        loopCounter++;
+        loopCounter++;
+
         switch (loopCounter)
         {
             case 0:
@@ -55,7 +62,11 @@ public class LevelOneChallenges : MonoBehaviour {
             case 2:
                 Level1_1_1Spikes.SetActive(false);
                 Level1_1_2Spikes.SetActive(false);
-                ButtonChangingHandler();
+                if (Time.time - timeSinceLastButtonChange > buttonChangeWaitTime)
+                {
+                    timeSinceLastButtonChange = Time.time;
+                    ButtonChangingHandler();
+                }
                 break;
             default:
                 Level1_1_1Spikes.SetActive(false);
@@ -67,13 +78,21 @@ public class LevelOneChallenges : MonoBehaviour {
 
     void ButtonChangingHandler()
     {
+        int previousNumber = 0;
+
         All_Button_Groups.SetActive(true);
         Button_Group_1.SetActive(false);
         Button_Group_2.SetActive(false);
         Button_Group_3.SetActive(false);
         Button_Group_4.SetActive(false);
         Button_Group_5.SetActive(false);
-        var randomButton = Random.Range(1, 5);
+        int randomButton = Random.Range(1, 6);
+        
+        if(randomButton >= previousNumber)
+        {
+            randomButton = randomButton + 1 % 6;
+        }
+        previousNumber = randomButton;
         switch (randomButton)
         {
             case 1:
