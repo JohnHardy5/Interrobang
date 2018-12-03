@@ -16,7 +16,7 @@ public class LevelTwoChallenges : MonoBehaviour {
     {
         LS = LoopyBoi.GetComponent<LoopingScript>();
         Level2_1_1Spikes = GameObject.Find("Level 2.1.1 Spikes");
-        Level2_1_2Spikes = GameObject.Find("level 2.1.2 Spikes");
+        Level2_1_2Spikes = GameObject.Find("Level 2.1.2 Spikes");
     }
 
     // Update is called once per frame
