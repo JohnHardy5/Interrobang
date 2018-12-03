@@ -37,6 +37,7 @@ public class LoadStartScreen : MonoBehaviour
         }
         moveDir *= -1;
         isMoving = false;
+        LoadGame();
     }
 
     //Start a timer to release the button. If the timer is not reset in time, release the button.
@@ -51,7 +52,6 @@ public class LoadStartScreen : MonoBehaviour
         if (isUp && !isMoving)
         {
             StartCoroutine(MoveButton());
-            LoadGame();
             isUp = false;
         }
         StartTimer();
