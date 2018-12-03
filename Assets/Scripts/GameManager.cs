@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
     public GameObject playerGO;
     [HideInInspector] public Vector3 respawnLocation;//Don't want anyone messing with this
     public GameObject EscapeMenu;
+    public int currentLevel = 1;
+    public int currentIterration = 0;
     
     private FirstPersonController playerScript;
     private Transform playerT;
