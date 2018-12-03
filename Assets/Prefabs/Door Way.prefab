@@ -170,6 +170,6 @@ MonoBehaviour:
   hinge: {fileID: 4679447518319080}
   rotateClockwise: 1
   isOpen: 0
-  numTimesToIterate: 90
-  rotationDistance: 1
+  numTimesToIterate: 18
+  rotationDistance: 5
   waitTime: 0.001

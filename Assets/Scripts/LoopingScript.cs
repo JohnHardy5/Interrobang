@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class LoopingScript : MonoBehaviour {
 
-    public bool isLoopingSection;
-
     private GameManager GM;
     private FirstPersonController PC;
-    public GameObject SpawnPoint;
     private Vector3 SpawnLocation;
-    public GameObject HallwayFloor;
-    public GameObject HallwayWall;
     private Vector3 HallwayFloorPosition;
     private Vector3 HallwayWallPosition;
     private Vector3 PlayerPosition;
     private float playerOffsetZ;
     private float playerOffsetY;
+    private DoorController DC;
+
+    public GameObject HallwayFloor;
+    public GameObject HallwayWall;
+    public GameObject SpawnPoint;
     public int loopCounter;
+    public bool isLoopingSection;
+    public GameObject DoorController;
     // Use this for initialization
     void Start()
     {
@@ -27,6 +29,7 @@ public class LoopingScript : MonoBehaviour {
         HallwayFloorPosition = HallwayFloor.transform.position;
         HallwayWallPosition = HallwayWall.transform.position;
         PlayerPosition = PC.transform.position;
+        DC = DoorController.GetComponent<DoorController>();
     }
 
     void Update()
@@ -44,6 +47,7 @@ public class LoopingScript : MonoBehaviour {
     {
         if (!isLoopingSection && loopCounter < 2)
         {
+            DC.CloseDoor();
             Vector3 SpawnLocationOffset = new Vector3(SpawnLocation.x, SpawnLocation.y + playerOffsetY, SpawnLocation.z + playerOffsetZ);
             loopCounter++;
             PC.Teleport(SpawnLocationOffset);
