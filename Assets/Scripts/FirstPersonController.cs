@@ -26,6 +26,7 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
     [SerializeField] private AudioSource m_AudioSource;       // audio source for player movement
     [SerializeField] private AudioSource DeathAudioSource;    // audio source for player death
+    public bool canMove = true;
 
     private Camera m_Camera;
     private bool m_Jump;
@@ -61,6 +62,7 @@ public class FirstPersonController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (!canMove) return;
         RotateView();
         // the jump state needs to read here to make sure it is not missed
         if (!m_Jump)
@@ -85,6 +87,7 @@ public class FirstPersonController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!canMove) return;
         float speed;
         GetInput(out speed);
         // always move along the camera forward as it is the direction that it being aimed at
@@ -295,5 +298,11 @@ public class FirstPersonController : MonoBehaviour
     public void UnlockCursor()
     {
         m_MouseLook.SetCursorLock(false);
+    }
+
+    public void ToggleCursor()
+    {
+        bool currState = m_MouseLook.lockCursor;
+        m_MouseLook.SetCursorLock(!currState);
     }
 }

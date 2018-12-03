@@ -77,6 +77,7 @@ public class MouseLook
 
     private void InternalLockUpdate()
     {
+        /* Manually handled by game manager
         if(Input.GetKeyUp(KeyCode.Escape))
         {
             m_cursorIsLocked = false;
@@ -84,7 +85,7 @@ public class MouseLook
         else if(Input.GetMouseButtonUp(0))
         {
             m_cursorIsLocked = true;
-        }
+        }*/
 
         if (m_cursorIsLocked)
         {

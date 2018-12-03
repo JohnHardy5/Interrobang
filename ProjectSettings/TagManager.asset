@@ -9,6 +9,7 @@ TagManager:
   - Button
   - GameManager
   - RestartGame
+  - EscapeMenu
   layers:
   - Default
   - TransparentFX

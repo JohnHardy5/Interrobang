@@ -10,7 +10,7 @@ public class IntroGameManager : MonoBehaviour {
 
 	public void StartGame()
     {
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene("Main Scene");
     }
 
     public void QuitGame()
