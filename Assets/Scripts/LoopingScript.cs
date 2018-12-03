@@ -42,7 +42,7 @@ public class LoopingScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isLoopingSection && loopCounter < 2)
+        if (!isLoopingSection && loopCounter <= 2)
         {
             Vector3 SpawnLocationOffset = new Vector3(SpawnLocation.x, SpawnLocation.y + playerOffsetY, SpawnLocation.z + playerOffsetZ);
             loopCounter++;

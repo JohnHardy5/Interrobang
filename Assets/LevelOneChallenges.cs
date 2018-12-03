@@ -16,10 +16,18 @@ public class LevelOneChallenges : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        loopCounter = LS.loopCounter;
-        // Debug.Log(loopCounter);
         
+        loopCounter = LS.loopCounter;
+        Debug.Log(loopCounter);
+        // Debug.Log(loopCounter);
+        if (loopCounter == 1)
+        {
             LevelSpikes.SetActive(true);
+        } else
+        {
+            LevelSpikes.SetActive(false);
+        }
+            
         
         
     }
