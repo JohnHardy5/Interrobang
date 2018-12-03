@@ -240,6 +240,11 @@ public class FirstPersonController : MonoBehaviour
             hit.gameObject.GetComponentInParent<ButtonController>().PressButton();
             return;
         }
+        if (hit.gameObject.CompareTag("RestartGame"))
+        {
+            hit.gameObject.GetComponentInParent<LoadStartScreen>().PressButton();
+            return;
+        }
 
         Rigidbody body = hit.collider.attachedRigidbody;
         //dont move the rigidbody if the character is on top of it
