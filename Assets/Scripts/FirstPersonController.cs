@@ -291,4 +291,9 @@ public class FirstPersonController : MonoBehaviour
     {
         this.transform.position = pos;
     }
+
+    public void UnlockCursor()
+    {
+        m_MouseLook.SetCursorLock(false);
+    }
 }

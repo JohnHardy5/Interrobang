@@ -16,6 +16,12 @@ public class LoadStartScreen : MonoBehaviour
     private bool isMoving = false;
     private int moveDir = -1;
     private float timer = 0.0f;
+    private FirstPersonController player;
+
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
+    }
 
     //Checks the timer to release the button automatically, if the button is down.
     private void Update()
@@ -37,6 +43,7 @@ public class LoadStartScreen : MonoBehaviour
         }
         moveDir *= -1;
         isMoving = false;
+        player.UnlockCursor();
         LoadGame();
     }
 
