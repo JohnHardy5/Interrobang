@@ -76,6 +76,6 @@ public class LoadStartScreen : MonoBehaviour
 
     public void LoadGame()
     {
-        SceneManager.LoadScene("Start Scene");
+        SceneManager.LoadScene("StartScene");
     }
 }

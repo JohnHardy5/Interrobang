@@ -15,6 +15,6 @@ public class LoadEndLevel : MonoBehaviour {
 
     public void LoadGame()
     {
-        SceneManager.LoadScene("End Scene");
+        SceneManager.LoadScene("EndScene");
     }
 }

@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour {
 
     public void LoadStartScene()
     {
-        SceneManager.LoadScene("Start Scene");
+        SceneManager.LoadScene("StartScene");
     }
 
     public void QuitGame()
