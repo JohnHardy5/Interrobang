@@ -9,7 +9,11 @@ public class LevelTwoChallenges : MonoBehaviour {
     private int loopCounter;
     private GameObject Level2_1_1Spikes;
     private GameObject Level2_1_2Spikes;
+    private GameObject Button_Group;
 
+    private float timeSinceLastButtonChange = 0.0f;
+
+    public float buttonChangeWaitTime;
 
     // Use this for initialization
     void Start()
@@ -17,6 +21,7 @@ public class LevelTwoChallenges : MonoBehaviour {
         LS = LoopyBoi.GetComponent<LoopingScript>();
         Level2_1_1Spikes = GameObject.Find("Level 2.1.1 Spikes");
         Level2_1_2Spikes = GameObject.Find("Level 2.1.2 Spikes");
+        Button_Group = GameObject.Find("Button Group");
     }
 
     // Update is called once per frame
@@ -28,6 +33,8 @@ public class LevelTwoChallenges : MonoBehaviour {
     void levelOneChallengeHandler()
     {
         loopCounter = LS.loopCounter;
+        loopCounter++;
+        loopCounter++;
 
         switch (loopCounter)
         {
@@ -40,6 +47,7 @@ public class LevelTwoChallenges : MonoBehaviour {
                 Level2_1_2Spikes.SetActive(true);
                 break;
             case 2:
+                MoveButton();
                 Level2_1_1Spikes.SetActive(false);
                 Level2_1_2Spikes.SetActive(false);
                 break;
@@ -48,5 +56,15 @@ public class LevelTwoChallenges : MonoBehaviour {
                 Level2_1_2Spikes.SetActive(false);
                 break;
         }
+    }
+    private void MoveButton()
+    {
+        if (Time.time - timeSinceLastButtonChange > buttonChangeWaitTime)
+        {
+            Vector3 ButtonMoveLocation1 = new Vector3(-4.48f, 5.71f, -16f);
+            Button_Group.transform.Translate(ButtonMoveLocation1);
+        }
+        Debug.Log(Button_Group.transform.position);
+        
     }
 }
