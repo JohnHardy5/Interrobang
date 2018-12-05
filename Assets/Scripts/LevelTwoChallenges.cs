@@ -64,7 +64,7 @@ public class LevelTwoChallenges : MonoBehaviour {
             Vector3 ButtonMoveLocation1 = new Vector3(-4.48f, 5.71f, -16f);
             Button_Group.transform.Translate(ButtonMoveLocation1);
         }
-        Debug.Log(Button_Group.transform.position);
+        //Debug.Log(Button_Group.transform.position);
         
     }
 }
