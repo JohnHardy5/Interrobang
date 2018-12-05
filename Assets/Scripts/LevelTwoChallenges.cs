@@ -9,6 +9,7 @@ public class LevelTwoChallenges : MonoBehaviour {
     private int loopCounter;
     private GameObject Level2_1_1Spikes;
     private GameObject Level2_1_2Spikes;
+    private GameObject Level2_1_3Objs;
     private GameObject Button_Group;
 
     private float timeSinceLastButtonChange = 0.0f;
@@ -21,6 +22,7 @@ public class LevelTwoChallenges : MonoBehaviour {
         LS = LoopyBoi.GetComponent<LoopingScript>();
         Level2_1_1Spikes = GameObject.Find("Level 2.1.1 Spikes");
         Level2_1_2Spikes = GameObject.Find("Level 2.1.2 Spikes");
+        Level2_1_3Objs = GameObject.Find("Level 2.1.3 Objects");
         Button_Group = GameObject.Find("Button Group");
     }
 
@@ -33,38 +35,29 @@ public class LevelTwoChallenges : MonoBehaviour {
     void levelOneChallengeHandler()
     {
         loopCounter = LS.loopCounter;
-        loopCounter++;
-        loopCounter++;
 
         switch (loopCounter)
         {
             case 0:
                 Level2_1_1Spikes.SetActive(true);
                 Level2_1_2Spikes.SetActive(false);
+                Level2_1_3Objs.SetActive(false);
                 break;
             case 1:
                 Level2_1_1Spikes.SetActive(false);
                 Level2_1_2Spikes.SetActive(true);
+                Level2_1_3Objs.SetActive(false);
                 break;
             case 2:
-                MoveButton();
                 Level2_1_1Spikes.SetActive(false);
                 Level2_1_2Spikes.SetActive(false);
+                Level2_1_3Objs.SetActive(true);
                 break;
             default:
                 Level2_1_1Spikes.SetActive(false);
                 Level2_1_2Spikes.SetActive(false);
+                Level2_1_3Objs.SetActive(false);
                 break;
         }
-    }
-    private void MoveButton()
-    {
-        if (Time.time - timeSinceLastButtonChange > buttonChangeWaitTime)
-        {
-            Vector3 ButtonMoveLocation1 = new Vector3(-4.48f, 5.71f, -16f);
-            Button_Group.transform.Translate(ButtonMoveLocation1);
-        }
-        //Debug.Log(Button_Group.transform.position);
-        
     }
 }
