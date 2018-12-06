@@ -29,7 +29,7 @@ public class LevelThreeChallenges : MonoBehaviour {
     void levelThreeChallengeHandler()
     {
         loopCounter = LS.loopCounter;
-        // loopCounter += 2;
+        loopCounter += 2;
 
         switch (loopCounter)
         {
