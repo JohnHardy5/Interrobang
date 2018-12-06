@@ -7,6 +7,6 @@ public class TriggerCrushingAnimation : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player")) anim.SetTrigger("StartAnimation");
+        if (other.gameObject.CompareTag("Player")) anim.Play("CrushingWall");
     }
 }

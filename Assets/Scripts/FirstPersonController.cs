@@ -26,6 +26,7 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
     [SerializeField] private AudioSource m_AudioSource;       // audio source for player movement
     [SerializeField] private AudioSource DeathAudioSource;    // audio source for player death
+    public Animator anim;
     public bool canMove = true;
 
     private Camera m_Camera;
@@ -277,6 +278,7 @@ public class FirstPersonController : MonoBehaviour
     {
         if (!canKill) return;
         canKill = false;
+        anim.Play("Waiting");
         RotateViewCutscene();
         this.transform.position = GM.respawnLocation;
         this.transform.eulerAngles = new Vector3(0, 90, 0);

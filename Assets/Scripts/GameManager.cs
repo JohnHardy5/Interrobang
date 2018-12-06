@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour {
 
     //Game settings
     public float pointOfNoReturn;//Point at which player has fallen out of map
-    public Vector3 defaultRespawnPoint;//If the spawn point for the current level couldn't be found, go here.
     public GameObject playerGO;
     [HideInInspector] public Vector3 respawnLocation;//Don't want anyone messing with this
     public GameObject EscapeMenu;
@@ -28,7 +27,7 @@ public class GameManager : MonoBehaviour {
     void Start () {
         playerScript = playerGO.GetComponent<FirstPersonController>();
         playerT = playerGO.GetComponent<Transform>();
-        respawnLocation = defaultRespawnPoint;
+        respawnLocation = playerT.position;
     }
 
     private void Update()
