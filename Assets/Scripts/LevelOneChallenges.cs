@@ -42,7 +42,6 @@ public class LevelOneChallenges : MonoBehaviour {
     void levelOneChallengeHandler()
     {
         loopCounter = LS.loopCounter;
-        //Debug.Log(loopCounter);
         switch (loopCounter)
         {
             case 0:
