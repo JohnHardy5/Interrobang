@@ -746,6 +746,8 @@ MonoBehaviour:
   playerGO: {fileID: 768766064}
   respawnLocation: {x: 0, y: 0, z: 0}
   EscapeMenu: {fileID: 2016104879}
+  currentLevel: 1
+  currentIterration: 0
 --- !u!1001 &1342481546
 Prefab:
   m_ObjectHideFlags: 0
@@ -1048,6 +1050,15 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: QuitGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 224262629566191354, guid: 852425efc2f53ff4aa10e8425f8490ce,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1888807370525604, guid: 852425efc2f53ff4aa10e8425f8490ce, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 852425efc2f53ff4aa10e8425f8490ce, type: 2}
