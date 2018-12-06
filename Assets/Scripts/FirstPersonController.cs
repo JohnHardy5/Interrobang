@@ -278,7 +278,7 @@ public class FirstPersonController : MonoBehaviour
     {
         if (!canKill) return;
         canKill = false;
-        anim.Play("Waiting");
+        if (anim.isActiveAndEnabled) anim.Play("Waiting");
         RotateViewCutscene();
         this.transform.position = GM.respawnLocation;
         this.transform.eulerAngles = new Vector3(0, 90, 0);
