@@ -11,11 +11,11 @@ public class DoorController : MonoBehaviour {
     public int numTimesToIterate;
     public float rotationDistance;
     public float waitTime;
+    public int numConnectedButtons;
 
     private Vector3 hingePos;
     private int rotationDir = 1;
     private bool isMoving = false;
-
 
     // Use this for initialization
     void Start()
@@ -66,5 +66,14 @@ public class DoorController : MonoBehaviour {
         if (!isOpen || isMoving) return;
         StartCoroutine(RotateDoor());
         isOpen = false;
+    }
+
+    public void DecrementNumConnectedButtons ()
+    {
+        numConnectedButtons--;
+        if (numConnectedButtons == 0)
+        {
+            OpenDoor();
+        } 
     }
 }
