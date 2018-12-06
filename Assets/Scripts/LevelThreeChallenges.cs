@@ -22,11 +22,11 @@ public class LevelThreeChallenges : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        levelOneChallengeHandler();
+        levelThreeChallengeHandler();
 
     }
 
-    void levelOneChallengeHandler()
+    void levelThreeChallengeHandler()
     {
         loopCounter = LS.loopCounter;
 
