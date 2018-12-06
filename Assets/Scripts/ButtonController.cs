@@ -15,6 +15,7 @@ public class ButtonController : MonoBehaviour {
     private bool isMoving = false;
     private int moveDir = -1;
     private float timer = 0.0f;
+    private bool hasBeenTriggered = false;
 
     //Checks the timer to release the button automatically, if the button is down.
     private void Update()
@@ -50,7 +51,8 @@ public class ButtonController : MonoBehaviour {
         if (isUp && !isMoving)
         {
             StartCoroutine(MoveButton());
-            doorToOpen.DecrementNumConnectedButtons();
+            if (!hasBeenTriggered) doorToOpen.DecrementNumConnectedButtons();
+            hasBeenTriggered = true;
             isUp = false;
         }
         StartTimer();
