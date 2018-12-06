@@ -50,7 +50,7 @@ public class ButtonController : MonoBehaviour {
         if (isUp && !isMoving)
         {
             StartCoroutine(MoveButton());
-            doorToOpen.OpenDoor();
+            doorToOpen.DecrementNumConnectedButtons();
             isUp = false;
         }
         StartTimer();
