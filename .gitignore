@@ -1,5 +1,10 @@
 Temp/
+
 Library/
+
+obj/
 *.sln
+
 .vs/
-*.csproj/*.cache
+
+*.csproj
