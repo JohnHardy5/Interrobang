@@ -71,7 +71,7 @@ public class DoorController : MonoBehaviour {
     public void DecrementNumConnectedButtons ()
     {
         numConnectedButtons--;
-        if (numConnectedButtons == 0)
+        if (numConnectedButtons <= 0)
         {
             OpenDoor();
         } 

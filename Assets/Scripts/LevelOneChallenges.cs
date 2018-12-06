@@ -48,7 +48,6 @@ public class LevelOneChallenges : MonoBehaviour {
                 Level1_1_1Spikes.SetActive(true);
                 Level1_1_2Spikes.SetActive(false);
                 All_Button_Groups.SetActive(false);
-                Button_Group_1.SetActive(true);
                 break;
             case 1:
                 Level1_1_1Spikes.SetActive(false);
@@ -84,7 +83,7 @@ public class LevelOneChallenges : MonoBehaviour {
         Button_Group_5.SetActive(false);
         int randomButton = Random.Range(1, 6);
         
-        if(randomButton >= previousNumber)
+        if(randomButton == previousNumber)
         {
             randomButton = randomButton + 1 % 6;
         }
