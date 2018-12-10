@@ -35,6 +35,7 @@ public class LevelTwoChallenges : MonoBehaviour {
     void levelTwoChallengeHandler()
     {
         loopCounter = LS.loopCounter;
+        loopCounter += 1;
 
         switch (loopCounter)
         {
