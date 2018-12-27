@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -21,19 +22,30 @@ public class GameManager : MonoBehaviour {
     public int currentIterration = 0;
     
     private FirstPersonController playerScript;
+    private Text timeText;
     private Transform playerT;
+    private float startTime;
+    private float currentPlayTime;
+
+    private void Awake()
+    {
+        startTime = Time.time;
+    }
 
     // Use this for initialization
     void Start () {
         playerScript = playerGO.GetComponent<FirstPersonController>();
         playerT = playerGO.GetComponent<Transform>();
         respawnLocation = playerT.position;
+        timeText = GameObject.FindGameObjectWithTag("Overlay").GetComponentInChildren<Text>();
+        Debug.Log(timeText.text);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown("escape")) ToggleMenu();
         if (playerT.position.y < pointOfNoReturn) playerScript.Kill();
+        currentPlayTime = Time.time - startTime;
     }
 
     public void SetSpawnLocation(Vector3 pos)
