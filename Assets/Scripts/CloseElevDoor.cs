@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class CloseElevDoor : MonoBehaviour {
     public Animator anim;
@@ -22,6 +21,6 @@ public class CloseElevDoor : MonoBehaviour {
     IEnumerator LoadGame()
     {
         yield return new WaitForSeconds(waitTime);
-        SceneManager.LoadScene("EndScene");
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().LoadEndScene();
     }
 }

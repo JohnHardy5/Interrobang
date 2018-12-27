@@ -1,7 +1,7 @@
 ﻿public static class PlayerData {
-    private static float playTime;
+    private static string playTime;
 
-    public static float PlayTime
+    public static string PlayTime
     {
         get
         {
