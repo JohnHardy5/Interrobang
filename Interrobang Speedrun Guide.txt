@@ -1,0 +1,17 @@
+1.1 - (MEDIUM) Jump onto edge of spiked platform on right, jump to unspiked platform on the left, jump to button, jump to left platform, jump to doorway.
+
+1.2 - (MEDIUM) Jump to right platform, then left (with spikes), then get the button, then the left platform (with spikes), then door.
+
+1.3 - (EASY) Good luck.
+
+2.1 - (EASY) Jump to left platform, follow intended path from there. (No skips)
+
+2.2 - (HARD) Jump to right platform, jump onto long right platform, jump into spike gap in space where sloped platform meets lower platform with spikes, jump to corner of attached upper platform with spikes, button, jump to corner of left platform with spikes, jump to attached upper platform w/o spikes, then big jump to door platform.
+
+2.3 - (EASY) Take same path as 2.1, but jump short of button and let it catch you on the return movement, jump of onto sloped platform on left, jump to door platform.
+
+3.1 - (EASY) Follow intended path of platforms on the left, when you reach the 3rd plaftorm, jump onto the upper left platform, jump onto the upper platform pointed at from the upper righthand corner of the current platform, face right, jump onto platform almost touching the huge red platform, turn around, jump onto platform above central platform, jump to long thin platform directly in front, jump to the button, jump to long flat platform, make a big jump to the small platform surrounded by spikes, follow intended path to door.
+
+3.2 - (HARD) Grab button inside center red pillar first (use lower central platform to jump directly), use slanted platform to get to upper central platform, jump onto the huge red platform, walk back towards the rear of the room (front has the door), jump onto small platform before big flat one, run without jumping onto pillar below big flat platform, use secret walk-through wall area to get button, take fastest route to walk-through blue wall on the left blue wall. Grab 3rd button, ignoring chute, jump down to small pillar surrounded by spikes (touching right blue wall) with 4th button on top, follow direct route to 5th button (use the opening doorway leading to yellow button as a ledge), jump onto long flat ledge with spikes using small space between spikes as ledge (look for space towards the end of the right side of the platform holding button 4). Jump onto central platform, follow intended route until you reach the walk-throughable wall leading to easter egg door. Follow passage to 5th button. Return the way you came and follow intended route to door.
+
+3.3 - (VERY HARD) Follow intended route until you reach the platform after the long thing one, skip the next platform in front by jumping from corner of current platform to platform in rightward direction, follow intended path to huge fat platform, skipe the intended jump and make huge jump to tiny ledge touching red pillar, jump to button, jump to central platform above spikes, jump to corner of long thing platform with spikes, jump again to far corner, make jump from corner to very edge of huge spiked plaform touching right wall. Look for the space between the spikes and don't sprint, do the same again moving forward by one space, jump again to corner of huge spiked platform, finally jump to lower platform of intended route. Follow intended route to door. Remember that time stops when the elevator doors close.
