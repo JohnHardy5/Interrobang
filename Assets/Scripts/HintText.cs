@@ -7,15 +7,15 @@ public class HintText : MonoBehaviour {
 
     private Text hintText;
     private GameManager gm;
-    private string hint_1_0 = "Level 1 iterration 0 hint";
-    private string hint_1_1 = "Level 1 iterration 1 hint";
-    private string hint_1_2 = "Level 1 iterration 2 hint";
-    private string hint_2_0 = "Level 2 iterration 0 hint";
-    private string hint_2_1 = "Level 2 iterration 1 hint";
-    private string hint_2_2 = "Level 2 iterration 2 hint";
-    private string hint_3_0 = "Level 3 iterration 0 hint";
-    private string hint_3_1 = "Level 3 iterration 1 hint";
-    private string hint_3_2 = "Level 3 iterration 2 hint";
+    private string hint_1_0 = "Baby Steps";
+    private string hint_1_1 = "Baby Steps the Sequel";
+    private string hint_1_2 = "Where the button goes, who knows?";
+    private string hint_2_0 = "Some jumps require a little SHIFT in Speed";
+    private string hint_2_1 = "Some jumps require strafing";
+    private string hint_2_2 = "Deception";
+    private string hint_3_0 = "Beginning of the end";
+    private string hint_3_1 = "Find the six buttons";
+    private string hint_3_2 = "Why are you reading the hints, there is a wall of spikes coming at you";
 
     // Use this for initialization
     void Start () {

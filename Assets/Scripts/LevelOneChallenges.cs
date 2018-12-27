@@ -3,35 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelOneChallenges : MonoBehaviour {
-    public GameObject LoopyBoi;
-
+    
     private LoopingScript LS;
     private int loopCounter;
-    private GameObject Level1_1_1Spikes;
-    private GameObject Level1_1_2Spikes;
+    private GameObject Level1_1_1GameObjects;
+    private GameObject Level1_1_2GameObjects;
+    private GameObject Level1_1_3GameObjects;
     private GameObject Button_Group_1;
     private GameObject Button_Group_2;
     private GameObject Button_Group_3;
     private GameObject Button_Group_4;
     private GameObject Button_Group_5;
-    private GameObject All_Button_Groups;
 
     private float timeSinceLastButtonChange = 0.0f;
 
     public float buttonChangeWaitTime;
+    public GameObject LoopyBoi;
 
 
     // Use this for initialization
     void Start () {
         LS = LoopyBoi.GetComponent<LoopingScript>();
-        Level1_1_1Spikes = GameObject.Find("Level 1.1.1 Spikes");
-        Level1_1_2Spikes = GameObject.Find("level 1.1.2 Spikes");
+        Level1_1_1GameObjects = GameObject.Find("Level 1.1.1 GameObjects");
+        Level1_1_2GameObjects = GameObject.Find("Level 1.1.2 GameObjects");
+        Level1_1_3GameObjects = GameObject.Find("Level 1.1.3 GameObjects");
         Button_Group_1 = GameObject.Find("Button Group 1");
         Button_Group_2 = GameObject.Find("Button Group 2");
         Button_Group_3 = GameObject.Find("Button Group 3");
         Button_Group_4 = GameObject.Find("Button Group 4");
         Button_Group_5 = GameObject.Find("Button Group 5");
-        All_Button_Groups = GameObject.Find("All Button Groups");
     }
 	
 	// Update is called once per frame
@@ -45,18 +45,18 @@ public class LevelOneChallenges : MonoBehaviour {
         switch (loopCounter)
         {
             case 0:
-                Level1_1_1Spikes.SetActive(true);
-                Level1_1_2Spikes.SetActive(false);
-                All_Button_Groups.SetActive(false);
+                Level1_1_1GameObjects.SetActive(true);
+                Level1_1_2GameObjects.SetActive(false);
+                Level1_1_3GameObjects.SetActive(false);
                 break;
             case 1:
-                Level1_1_1Spikes.SetActive(false);
-                Level1_1_2Spikes.SetActive(true);
-                All_Button_Groups.SetActive(false);
+                Level1_1_1GameObjects.SetActive(false);
+                Level1_1_2GameObjects.SetActive(true);
+                Level1_1_3GameObjects.SetActive(false);
                 break;
             case 2:
-                Level1_1_1Spikes.SetActive(false);
-                Level1_1_2Spikes.SetActive(false);
+                Level1_1_1GameObjects.SetActive(false);
+                Level1_1_2GameObjects.SetActive(false);
                 if (Time.time - timeSinceLastButtonChange > buttonChangeWaitTime)
                 {
                     timeSinceLastButtonChange = Time.time;
@@ -64,9 +64,9 @@ public class LevelOneChallenges : MonoBehaviour {
                 }
                 break;
             default:
-                Level1_1_1Spikes.SetActive(false);
-                Level1_1_2Spikes.SetActive(false);
-                All_Button_Groups.SetActive(false);
+                Level1_1_1GameObjects.SetActive(false);
+                Level1_1_2GameObjects.SetActive(false);
+                Level1_1_3GameObjects.SetActive(false);
                 break;
         }
     }
@@ -75,7 +75,7 @@ public class LevelOneChallenges : MonoBehaviour {
     {
         int previousNumber = 0;
 
-        All_Button_Groups.SetActive(true);
+        Level1_1_3GameObjects.SetActive(true);
         Button_Group_1.SetActive(false);
         Button_Group_2.SetActive(false);
         Button_Group_3.SetActive(false);
